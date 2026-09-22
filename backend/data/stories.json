@@ -1,0 +1,57 @@
+[
+  {
+    "id": "story-1",
+    "title_si": "ඔංචිල්ලාවේ මතකය",
+    "title_en": "Memory of the Swing",
+    "category": "Poems",
+    "date": "2026-09-01",
+    "cover_image": "/assets/tree-swing.png",
+    "status": "published",
+    "content_si": "ගස් අතු පතරින් හිරු එබෙනා සඳ\nසුළඟේ පාවී සිනාසුනා ඔබ\nපැරණි ලණුවේ රැඳි පාළුව මැද\nතවමත් පැද්දෙයි අපේ මතකය...",
+    "content_en": "As dawn filters through emerald leaves,\nYour gentle laugh rides the whispering breeze.\nUpon the frayed hemp of the silent swing,\nOur timeless memories quietly sway and sing..."
+  },
+  {
+    "id": "story-2",
+    "title_si": "නෙළුම් පෙත්තක ලියූ ප්‍රේමය",
+    "title_en": "Love Penned on a Lotus Petal",
+    "category": "Excerpts",
+    "date": "2026-08-20",
+    "cover_image": "/assets/pink-lotus.png",
+    "status": "published",
+    "content_si": "නෙළුම් මල් පිරි විල මැදින් ඔරුව නිහඬව ලිස්සා ගියේය. ජල තලයේ ඇඳුනු තරංග මෙන් අපේ සිත් තුළ ද නොකියූ ආදරයක සෙවණැලි සෙමින් සෙලවිණි. 'ඔබ ආපසු එනවාද?' ඇය ඇසුවේ දිය බිඳිති අතින් ස්පර්ශ කරමිනි. 'නෙළුම් මල් පිපෙන සෑම වසන්තයකම මම ඔබේ හදවත ළඟ නවතිමි.' ඔහු පිළිතුරු දුන්නේය.",
+    "content_en": "The wooden boat drifted weightlessly through the bed of blossoming water lilies. Like ripples kissing the shoreline, waves of unspoken devotion stirred between them. 'Will you return with the rain?' she whispered, letting her fingertips trace the cool water. 'With every season the sacred lotus blooms, my soul shall always find its sanctuary beside you,' he replied."
+  },
+  {
+    "id": "story-3",
+    "title_si": "කඳුකර ලී කුටිය",
+    "title_en": "The Mountain Log Cabin",
+    "category": "Stories",
+    "date": "2026-07-15",
+    "cover_image": "/assets/cabin-cutout.png",
+    "status": "published",
+    "content_si": "හැන්දෑවේ අඳුර වැටෙන විට ඒ පුංචි ලී කුටියේ පහන් එළිය දැල්වුණේ මුළු නිම්නයටම උණුසුම බෙදමිනි. චිමිනියෙන් නැගෙන සුදු දුම් රොටු වනාන්තරයේ සීතල මීදුම සමඟ මුසු විය. මෙහි පැමිණි කිසිවෙකුට ලෝකයේ ශෝකයන් මතක හිටියේ නැත. ලී කුටියේ බිත්ති වල තිබුණේ වචන වලින් විස්තර කළ නොහැකි ආදරය සහ සාමයේ සුවඳයි.",
+    "content_en": "As evening shadows kissed the rolling hills, the amber lamp of the timber cabin flared to life, shedding warmth across the silent valley. Curls of woodsmoke dissolved into mountain mist. In that secluded haven, worldly sorrow ceased to matter. Within its cedar walls lingered the untranslatable scent of peace and enduring romance."
+  },
+  {
+    "id": "story-4",
+    "title_si": "ආභරණයක ආත්මය",
+    "title_en": "Soul of the Adornment",
+    "category": "Literary Notes",
+    "date": "2026-06-30",
+    "cover_image": "/assets/arungal-jhumka.png",
+    "status": "published",
+    "content_si": "අරුංගලයක් යනු ලෝහමය සැරසිල්ලක් පමණක් නොවේ. එය මුහුණක සිනහවට, කනෙහි ස්පර්ශයට සහ ගැහැනු ළමයෙකු යුවතියක වන සුන්දර පරිවර්තනයට සාක්ෂිකරුවෙකි. ඔබ රන්වන් අරුංගලයක් දෙස බලන විට, එහි නිහඬ කතාවට කන් දෙන්න.",
+    "content_en": "A traditional earring is more than ornate metalwork. It is an intimate witness to whispers of joy, the grace of movement, and a girl's blooming into sacred womanhood. When you gaze upon an heirloom arungal, listen closely to its quiet history."
+  },
+  {
+    "id": "story-5",
+    "title_si": "සමනල් පියපත් සහ සදාතනික බලාපොරොත්තුව",
+    "title_en": "Butterfly Wings & Eternal Hope",
+    "category": "Quotes",
+    "date": "2026-05-18",
+    "cover_image": "/assets/green-butterfly.png",
+    "status": "published",
+    "content_si": "සමනලයෙකු මලක් කරා පියාසර කරන්නේ මලට රිදවීමට නොවේ; එහි සුවඳ තවත් තැනකට රැගෙන යාමටයි. ප්‍රේමයද එසේ විය යුතුය.",
+    "content_en": "A butterfly grazes the petal not to bruise the flower, but to carry its fragrance into eternity. True love was never meant to be anything less."
+  }
+]

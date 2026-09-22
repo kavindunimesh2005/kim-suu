@@ -1,0 +1,96 @@
+/* Centralized Literary Theme Definitions */
+
+/* 1. Default: Deep Plum / Burgundy Literary Theme */
+:root,
+[data-theme="default"] {
+  --color-primary: #4B2633;
+  --color-primary-rgb: 75, 38, 51;
+  --color-secondary: #7A4A56;
+  --color-secondary-rgb: 122, 74, 86;
+  --color-bg: #F8F3EE;
+  --color-bg-alt: #F1E9E0;
+  --color-text: #241C1E;
+  --color-text-muted: #5F4E54;
+  --color-accent: #C8A27A;
+  --color-accent-hover: #b48c62;
+  --color-card-bg: rgba(255, 255, 255, 0.85);
+  --color-card-border: rgba(75, 38, 51, 0.12);
+  --color-glass-nav: rgba(248, 243, 238, 0.88);
+  --theme-shadow: 0 12px 35px -8px rgba(75, 38, 51, 0.15);
+  --theme-badge-bg: rgba(200, 162, 122, 0.2);
+  --theme-badge-text: #4B2633;
+  --theme-quote-border: #C8A27A;
+}
+
+/* 2. Hulu Aththa: Light Green / Forest Natural Theme */
+[data-theme="huluAththa"] {
+  --color-primary: #718A68;
+  --color-primary-rgb: 113, 138, 104;
+  --color-secondary: #A8B89C;
+  --color-secondary-rgb: 168, 184, 156;
+  --color-bg: #F4F6ED;
+  --color-bg-alt: #EBF0E1;
+  --color-text: #263126;
+  --color-text-muted: #4B5A4B;
+  --color-accent: #D9C7A3;
+  --color-accent-hover: #c4b087;
+  --color-card-bg: rgba(255, 255, 255, 0.88);
+  --color-card-border: rgba(113, 138, 104, 0.18);
+  --color-glass-nav: rgba(244, 246, 237, 0.9);
+  --theme-shadow: 0 12px 35px -8px rgba(113, 138, 104, 0.18);
+  --theme-badge-bg: rgba(113, 138, 104, 0.18);
+  --theme-badge-text: #3D5037;
+  --theme-quote-border: #718A68;
+}
+
+/* 3. Arungal: Warm Brown / Earthy Literary Theme */
+[data-theme="arungal"] {
+  --color-primary: #6B4632;
+  --color-primary-rgb: 107, 70, 50;
+  --color-secondary: #8B6349;
+  --color-secondary-rgb: 139, 99, 73;
+  --color-bg: #F3E9DD;
+  --color-bg-alt: #E8D9C6;
+  --color-text: #2E211A;
+  --color-text-muted: #644F43;
+  --color-accent: #B68A5A;
+  --color-accent-hover: #9F7444;
+  --color-card-bg: rgba(255, 255, 255, 0.85);
+  --color-card-border: rgba(107, 70, 50, 0.16);
+  --color-glass-nav: rgba(243, 233, 221, 0.9);
+  --theme-shadow: 0 12px 35px -8px rgba(107, 70, 50, 0.2);
+  --theme-badge-bg: rgba(182, 138, 90, 0.2);
+  --theme-badge-text: #5A3926;
+  --theme-quote-border: #B68A5A;
+}
+
+/* Cinematic Theme Transition Overlay */
+.theme-wash-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 750ms cubic-bezier(0.4, 0, 0.2, 1);
+  background: radial-gradient(circle at center, var(--color-bg) 0%, rgba(var(--color-primary-rgb), 0.15) 100%);
+}
+
+.theme-wash-overlay.active {
+  opacity: 0.85;
+}
+
+/* Smooth color transitions on all theme elements */
+body,
+.theme-transition-all,
+.navbar-custom,
+.card,
+.btn-literary,
+.footer-custom {
+  transition: background-color 750ms cubic-bezier(0.4, 0, 0.2, 1),
+              color 750ms cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 750ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 750ms cubic-bezier(0.4, 0, 0.2, 1);
+}

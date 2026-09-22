@@ -1,0 +1,10 @@
+{
+  "admin": {
+    "username": "Kavii",
+    "password_hash": "scrypt:32768:8:1$siI3YwmdYsz6QHH2$176b6facf41e1f4a3f14df6e9ad62d683af0b88f2677b9d8f3f6913d04871ec42c8be54f350e0ac8fa09cae2b3cad534d7a654c2d699e4d791e85c5ac9c5303c",
+    "email": "kavii@authorworld.lk",
+    "name": "Kavii Admin",
+    "role": "superadmin",
+    "created_at": "2026-09-22T00:00:00Z"
+  }
+}
