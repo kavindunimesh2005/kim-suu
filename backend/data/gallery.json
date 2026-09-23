@@ -1,82 +1,5 @@
 [
   {
-    "id": "gallery-1",
-    "title_si": "කතුවරිය සුචේතා කපුආරච්චි",
-    "title_en": "Author Suchetha Kapuarachchi",
-    "image": "/assets/author-suchetha.jpg",
-    "category": "Author Portrait",
-    "caption_si": "සුචේතා කපුආරච්චිගේ සාහිත්‍යමය චිත්‍රණය සහ පෞද්ගලික සිනහව",
-    "caption_en": "Portrait of Suchetha Kapuarachchi, the poetic voice behind Hulu Aththa & Arungal",
-    "order": 1,
-    "status": "published"
-  },
-  {
-    "id": "gallery-2",
-    "title_si": "හුළු අත්ත නිල කවර නිර්මාණය",
-    "title_en": "Hulu Aththa Official Book Cover",
-    "image": "/assets/huluaththa-cover.jpg",
-    "category": "Book Covers",
-    "caption_si": "මීදුම් පිරි කඳුකර කුටිය සහ සොබාදහම රැඳි හුළු අත්ත කවරය",
-    "caption_en": "The iconic watercolor book cover of Hulu Aththa featuring the lakeside cabin",
-    "order": 2,
-    "status": "published"
-  },
-  {
-    "id": "gallery-3",
-    "title_si": "අරුංගල් නිල කවර නිර්මාණය",
-    "title_en": "Arungal Official Book Cover",
-    "image": "/assets/arungal-cover.png",
-    "category": "Book Covers",
-    "caption_si": "නෙළුම් මල් සරසන ලද රන් අරුංගලය සහිත නිල කවරය",
-    "caption_en": "The majestic brown and gold cover of Arungal with the lotus-adorned heroine",
-    "order": 3,
-    "status": "published"
-  },
-  {
-    "id": "gallery-4",
-    "title_si": "අරුංගල් සිනමාත්මක ප්‍රේම දැක්ම",
-    "title_en": "Arungal Cinematic Story Visual",
-    "image": "/assets/arungal-couple.jpg",
-    "category": "Literary Art",
-    "caption_si": "පාරම්පරික ඇඳුමෙන් සැරසුණු ප්‍රධාන චරිත ද්විත්වයේ සිනමාත්මක ආදර බැල්ම",
-    "caption_en": "Cinematic visual portrayal of the protagonists wearing traditional heirlooms",
-    "order": 4,
-    "status": "published"
-  },
-  {
-    "id": "gallery-5",
-    "title_si": "කඳුකර නිම්නයේ ලී කුටිය හා ජලාශය",
-    "title_en": "Mountain Cabin & Lake Landscape",
-    "image": "/assets/huluaththa-landscape.jpg",
-    "category": "Literary Art",
-    "caption_si": "හුළු අත්ත ලෝකයේ ප්‍රධාන පසුබිම් වූ සාමකාමී පරිසරය",
-    "caption_en": "The tranquil panoramic watercolor lake that inspired the setting of Hulu Aththa",
-    "order": 5,
-    "status": "published"
-  },
-  {
-    "id": "gallery-6",
-    "title_si": "නෙළුම් විල මැද ඔරු පැදීම",
-    "title_en": "Lotus Lake Boat Ride",
-    "image": "/assets/lake-boat-watercolor.png",
-    "category": "Illustrations",
-    "caption_si": "යොවුන් යුවළක් නෙළුම් විල මැද ඔරුවක පාවී යන සිතුවම",
-    "caption_en": "Lyrical watercolor painting of youth in a wooden boat amidst lotus blooms",
-    "order": 6,
-    "status": "published"
-  },
-  {
-    "id": "gallery-7",
-    "title_si": "නෙළුම් මාණික්‍ය රන් අරුංගලය",
-    "title_en": "Lotus Ruby Heirloom Jhumka",
-    "image": "/assets/arungal-jhumka.png",
-    "category": "Artifacts",
-    "caption_si": "අරුංගල් නවකතාවේ සංකේතාත්මක රාජකීය ආභරණය",
-    "caption_en": "The heirloom ruby lotus jhumka symbolizing maternal resilience and heritage",
-    "order": 7,
-    "status": "published"
-  },
-  {
     "id": "gallery-8",
     "title_si": "අත් මඟුලට අරුංගල් පිදීම",
     "title_en": "The Hand Offering of the Arungal",
@@ -85,17 +8,38 @@
     "caption_si": "විවාහ මඟුලේදී සාම්ප්‍රදායිකව අරුංගල් දෑතට පිළිගැන්වීම",
     "caption_en": "Traditional ritual offering of the sacred arungal into henna-patterned hands",
     "order": 8,
-    "status": "published"
+    "status": "published",
+    "published": false,
+    "showInBlog": false
   },
   {
-    "id": "gallery-9",
-    "title_si": "සොබාදහමේ මිතුරු මොහොත",
-    "title_en": "Moments in Nature: Puppy & Butterfly",
-    "image": "/assets/puppy-butterfly.png",
+    "title_si": "අරුංගල් — නව කතාවක ඇරඹුම",
+    "title_en": "Arungal — The beginning of a new story",
+    "image": "/uploads/general/a4521a3cef6c404a83379b8dd9475a2c.jpeg",
     "category": "Writing Moments",
-    "caption_si": "කතුවරියගේ ලේඛන විවේකයේ අහිංසක සුන්දරත්වය",
-    "caption_en": "Playful companionship and innocent joy from the author's writing retreat",
-    "order": 9,
-    "status": "published"
+    "caption_si": "",
+    "caption_en": "",
+    "order": 10,
+    "status": "published",
+    "id": "gallery-e4d35184",
+    "slug": "arungal-the-beginning-of-a-new-story",
+    "published": false,
+    "created_at": "2026-09-23T21:17:18.353032+00:00",
+    "updated_at": "2026-09-23T21:17:18.353032+00:00"
+  },
+  {
+    "title_si": "අරුංගල් — නව කතාවක ඇරඹුම",
+    "title_en": "Arungal — The beginning of a new story",
+    "image": "/uploads/general/a04c9c6601594539876ea8eff7dba00f.jpeg",
+    "category": "Book Covers",
+    "caption_si": "",
+    "caption_en": "",
+    "order": 10,
+    "status": "published",
+    "id": "gallery-7bc792d7",
+    "slug": "arungal-the-beginning-of-a-new-story-1",
+    "published": false,
+    "created_at": "2026-09-23T21:17:57.811935+00:00",
+    "updated_at": "2026-09-23T21:17:57.811935+00:00"
   }
 ]

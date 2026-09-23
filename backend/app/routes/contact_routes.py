@@ -1,75 +1,114 @@
-from flask import Blueprint, jsonify, request
-import datetime
-from app.services.data_service import get_all, get_by_id, create_item, update_item, delete_item
-from app.auth.auth_service import admin_required
+"""Contact form and admin message management routes."""
+from flask import Blueprint, request, jsonify
+from backend.app.auth.decorators import admin_required
+from backend.app.services.data_service import (
+    get_all,
+    get_by_id,
+    create,
+    update,
+    delete
+)
+from backend.app.services.validation_service import validate_contact_message
 
-contact_bp = Blueprint('contact', __name__)
+contact_bp = Blueprint("contact", __name__)
 
-@contact_bp.route('', methods=['POST'])
-def send_contact_message():
-    data = request.get_json()
-    if not data:
-        return jsonify({"error": "No data provided"}), 400
+
+# ==========================================
+# Public Endpoints
+# ==========================================
+
+@contact_bp.route("/contact", methods=["POST"])
+def submit_contact_message():
+    """Public: submit a contact message / reader inquiry."""
+    payload = request.get_json(silent=True) or {}
+    is_valid, error = validate_contact_message(payload)
+    if not is_valid:
+        return jsonify({"success": False, "error": error}), 400
         
-    name = data.get('name', '').strip()
-    email = data.get('email', '').strip()
-    subject = data.get('subject', '').strip()
-    message = data.get('message', '').strip()
-    
-    if not name or not email or not message:
-        return jsonify({"error": "Name, email, and message are required"}), 400
-        
-    # Basic email validation
-    if '@' not in email or '.' not in email:
-        return jsonify({"error": "Please provide a valid email address"}), 400
-        
-    new_msg = {
-        "name": name,
-        "email": email,
-        "subject": subject or "Inquiry from website",
-        "message": message,
-        "date": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-        "status": "new"
+    message_data = {
+        "name": str(payload.get("name", "")).strip(),
+        "email": str(payload.get("email", "")).strip().lower(),
+        "subject": str(payload.get("subject", "General Inquiry")).strip(),
+        "message": str(payload.get("message", "")).strip(),
+        "read": False
     }
     
-    created = create_item('messages', new_msg)
+    saved_message = create("messages", message_data)
+    
     return jsonify({
         "success": True,
-        "message_si": "ඔබගේ පණිවිඩය සාර්ථකව යොමු කෙරිණි. කතුවරියගේ කණ්ඩායම ඔබ හා සම්බන්ධ වනු ඇත.",
-        "message_en": "Your message has been sent successfully. The author will be in touch soon.",
-        "data": created
+        "message": "Thank you for reaching out. Your message has been received.",
+        "data": {
+            "id": saved_message["id"],
+            "created_at": saved_message["created_at"]
+        }
     }), 201
 
-# Admin Message Management Endpoints
-@contact_bp.route('/admin/messages', methods=['GET'])
-@admin_required
-def get_all_messages():
-    status = request.args.get('status')
-    messages = get_all('messages')
-    if status:
-        messages = [m for m in messages if m.get('status') == status]
-    # Sort descending by date
-    messages.sort(key=lambda m: m.get('date', ''), reverse=True)
-    return jsonify(messages)
 
-@contact_bp.route('/admin/messages/<identifier>', methods=['PUT'])
-@admin_required
-def update_message_status(identifier):
-    data = request.get_json()
-    if not data or not data.get('status'):
-        return jsonify({"error": "Status is required"}), 400
-    valid_statuses = ['new', 'read', 'replied', 'archived']
-    if data['status'] not in valid_statuses:
-        return jsonify({"error": f"Status must be one of {valid_statuses}"}), 400
-    updated = update_item('messages', identifier, {"status": data['status']})
-    if not updated:
-        return jsonify({"error": "Message not found"}), 404
-    return jsonify(updated)
+# ==========================================
+# Admin Endpoints
+# ==========================================
 
-@contact_bp.route('/admin/messages/<identifier>', methods=['DELETE'])
+@contact_bp.route("/admin/messages", methods=["GET"])
+@contact_bp.route("/contact/admin/messages", methods=["GET"])
 @admin_required
-def delete_message(identifier):
-    success = delete_item('messages', identifier)
+def admin_get_messages():
+    """Admin: retrieve reader inquiries, optionally filtered by read status."""
+    messages = get_all("messages")
+    
+    read_filter = request.args.get("read") or request.args.get("status")
+    if read_filter is not None:
+        target_read = read_filter.lower() in ("true", "1", "yes", "read")
+        messages = [m for m in messages if bool(m.get("read")) is target_read]
+        
+    # Sort descending by creation date
+    messages = sorted(
+        messages,
+        key=lambda m: m.get("created_at", ""),
+        reverse=True
+    )
+    
+    return jsonify({
+        "success": True,
+        "count": len(messages),
+        "data": messages
+    }), 200
+
+
+@contact_bp.route("/admin/messages/<message_id>/read", methods=["PUT"])
+@contact_bp.route("/contact/admin/messages/<message_id>/read", methods=["PUT"])
+@contact_bp.route("/contact/admin/messages/<message_id>", methods=["PUT"])
+@admin_required
+def admin_mark_message_read(message_id: str):
+    """Admin: mark a message as read or unread."""
+    message = get_by_id("messages", message_id)
+    if not message:
+        return jsonify({"success": False, "error": f"Message '{message_id}' not found"}), 404
+        
+    payload = request.get_json(silent=True) or {}
+    if "status" in payload:
+        new_state = payload["status"] == "read"
+    else:
+        new_state = payload.get("read", True)
+    
+    updated = update("messages", message_id, {"read": bool(new_state)})
+    return jsonify({
+        "success": True,
+        "message": f"Message marked as {'read' if new_state else 'unread'}",
+        "data": updated
+    }), 200
+
+
+@contact_bp.route("/admin/messages/<message_id>", methods=["DELETE"])
+@contact_bp.route("/contact/admin/messages/<message_id>", methods=["DELETE"])
+@admin_required
+def admin_delete_message(message_id: str):
+    """Admin: delete a message."""
+    success = delete("messages", message_id)
     if not success:
-        return jsonify({"error": "Message not found"}), 404
-    return jsonify({"success": True, "message": "Message deleted successfully"})
+        return jsonify({"success": False, "error": f"Message '{message_id}' not found"}), 404
+        
+    return jsonify({
+        "success": True,
+        "message": "Message deleted successfully"
+    }), 200

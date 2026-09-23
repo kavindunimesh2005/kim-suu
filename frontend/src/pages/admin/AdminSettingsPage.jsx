@@ -30,7 +30,7 @@ export const AdminSettingsPage = () => {
       await api.admin.updateSettings(settings);
       setAlert({ type: 'success', text: 'System settings saved successfully!' });
     } catch (err) {
-      setAlert({ type: 'danger', text: 'Failed to update settings' });
+      setAlert({ type: 'danger', text: err.message || 'Failed to update settings' });
     } finally {
       setSaving(false);
     }

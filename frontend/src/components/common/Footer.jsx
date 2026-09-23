@@ -10,7 +10,7 @@ export const Footer = () => {
     <footer className="footer-custom mt-auto pt-5 pb-4 border-top" style={{ background: 'var(--color-bg-alt)', borderColor: 'var(--color-card-border)' }}>
       <div className="container">
         <div className="row g-4 mb-4 align-items-center">
-          
+
           {/* Author Brand */}
           <div className="col-lg-4 text-center text-lg-start">
             <div className="d-flex align-items-center justify-content-center justify-content-lg-start gap-2 mb-2">
@@ -32,7 +32,6 @@ export const Footer = () => {
               <Link to="/home" className="text-decoration-none text-muted small">{t('nav.home')}</Link>
               <Link to="/about" className="text-decoration-none text-muted small">{t('nav.about')}</Link>
               <Link to="/books" className="text-decoration-none text-muted small">{t('nav.books')}</Link>
-              <Link to="/stories" className="text-decoration-none text-muted small">{t('nav.stories')}</Link>
               <Link to="/blog" className="text-decoration-none text-muted small">{t('nav.blog')}</Link>
               <Link to="/gallery" className="text-decoration-none text-muted small">{t('nav.gallery')}</Link>
               <Link to="/contact" className="text-decoration-none text-muted small">{t('nav.contact')}</Link>
@@ -48,7 +47,7 @@ export const Footer = () => {
               <a href="https://facebook.com" target="_blank" rel="noreferrer" className="text-muted hover-primary" title="Facebook">
                 <i className="bi bi-facebook fs-5"></i>
               </a>
-              <a href="https://goodreads.com" target="_blank" rel="noreferrer" className="text-muted hover-primary" title="Goodreads">
+              <a href="https://bharana.lk/" target="_blank" rel="noreferrer" className="text-muted hover-primary" title="Goodreads">
                 <BookMarked size={18} />
               </a>
             </div>
@@ -63,8 +62,8 @@ export const Footer = () => {
           </p>
 
           {/* Subtle Admin Link (as requested: discreet, not prominent) */}
-          <Link 
-            to="/admin/login" 
+          <Link
+            to="/admin/login"
             className="text-muted small text-decoration-none d-flex align-items-center gap-1 opacity-50 hover-opacity-100"
             style={{ fontSize: '0.78rem', letterSpacing: '0.05em' }}
             title="Administrator Access"

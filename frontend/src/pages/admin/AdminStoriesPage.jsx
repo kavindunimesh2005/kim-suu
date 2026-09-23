@@ -56,7 +56,7 @@ export const AdminStoriesPage = () => {
       setIsModalOpen(false);
       fetchStories();
     } catch (err) {
-      setAlert({ type: 'danger', text: 'Failed to save story' });
+      setAlert({ type: 'danger', text: err.message || 'Failed to save story' });
     }
   };
 
@@ -67,7 +67,7 @@ export const AdminStoriesPage = () => {
       setAlert({ type: 'success', text: 'Story removed' });
       fetchStories();
     } catch (err) {
-      setAlert({ type: 'danger', text: 'Failed to delete story' });
+      setAlert({ type: 'danger', text: err.message || 'Failed to delete story' });
     }
   };
 

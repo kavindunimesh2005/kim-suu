@@ -15,7 +15,6 @@ export const Navbar = () => {
     { to: '/home', labelKey: 'nav.home' },
     { to: '/about', labelKey: 'nav.about' },
     { to: '/books', labelKey: 'nav.books' },
-    { to: '/stories', labelKey: 'nav.stories' },
     { to: '/blog', labelKey: 'nav.blog' },
     { to: '/gallery', labelKey: 'nav.gallery' },
     { to: '/contact', labelKey: 'nav.contact' }
@@ -24,12 +23,12 @@ export const Navbar = () => {
   return (
     <header className="navbar-custom">
       <div className="container d-flex align-items-center justify-content-between">
-        
+
         {/* Brand / Logo */}
         <Link to="/home" className="d-flex align-items-center gap-2 text-decoration-none" style={{ color: 'var(--color-primary)' }}>
-          <img 
-            src="/assets/pink-lotus.png" 
-            alt="Suchetha Lotus" 
+          <img
+            src="/assets/pink-lotus.png"
+            alt="Suchetha Lotus"
             style={{ width: '38px', height: '38px', objectFit: 'contain' }}
             className="animate-float"
           />
@@ -58,7 +57,7 @@ export const Navbar = () => {
 
         {/* Controls: Theme, Language, Invitation */}
         <div className="d-flex align-items-center gap-2">
-          
+
           {/* Theme Dropdown */}
           <div className="position-relative">
             <button
@@ -66,9 +65,9 @@ export const Navbar = () => {
               className="theme-pill-btn"
               title="Change Literary Theme"
             >
-              <span 
-                className="theme-pill-dot" 
-                style={{ backgroundColor: themes[currentTheme].primary }} 
+              <span
+                className="theme-pill-dot"
+                style={{ backgroundColor: themes[currentTheme].primary }}
               />
               <span className="d-none d-sm-inline">
                 {currentTheme === 'huluAththa' ? 'Hulu Aththa' : currentTheme === 'arungal' ? 'Arungal' : 'Plum Theme'}
@@ -77,7 +76,7 @@ export const Navbar = () => {
             </button>
 
             {themeDropdownOpen && (
-              <div 
+              <div
                 className="position-absolute end-0 mt-2 py-2 card-literary shadow-lg"
                 style={{ width: '220px', zIndex: 1050, background: 'var(--color-card-bg)' }}
               >
@@ -100,8 +99,8 @@ export const Navbar = () => {
                       cursor: 'pointer'
                     }}
                   >
-                    <span 
-                      className="rounded-circle d-inline-block" 
+                    <span
+                      className="rounded-circle d-inline-block"
                       style={{ width: '12px', height: '12px', backgroundColor: thm.primary, border: '1px solid #fff' }}
                     />
                     <span>{thm.name_si || thm.name}</span>

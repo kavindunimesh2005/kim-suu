@@ -1,0 +1,518 @@
+/* Invitation Page & Physical Cinematic Envelope Styles */
+
+/* Fullscreen Stage */
+.invitation-stage {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: #24141A;
+  color: #241C1E;
+}
+
+/* Warm Parchment Texture & Subtle Vignette */
+.parchment-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 50% 40%, rgba(248, 243, 238, 0.96) 0%, rgba(240, 230, 218, 0.94) 55%, rgba(43, 20, 28, 0.92) 100%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: cover, 180px 180px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Faint Botanical Art Watermark */
+.botanical-watermark {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.12;
+  z-index: 2;
+  filter: sepia(0.5) contrast(1.1);
+  max-width: 45vw;
+  max-height: 45vh;
+  object-fit: contain;
+}
+
+.botanical-watermark.top-left {
+  top: -40px;
+  left: -40px;
+  width: 320px;
+  transform: rotate(-15deg);
+}
+
+.botanical-watermark.bottom-right {
+  bottom: -40px;
+  right: -40px;
+  width: 360px;
+  transform: rotate(15deg);
+}
+
+/* Ambient Animated Lighting */
+.ambient-glow-circle {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 162, 122, 0.22) 0%, rgba(200, 162, 122, 0) 70%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* 3D Invitation Card Container */
+.invitation-card-perspective {
+  perspective: 1400px;
+  width: 100%;
+  max-width: 520px;
+  z-index: 10;
+  position: relative;
+}
+
+/* Physical Parchment Invitation Card */
+.invitation-card {
+  background: #FCF9F5;
+  background-image: 
+    linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(247, 240, 230, 0.9) 100%),
+    radial-gradient(circle at 50% 0%, rgba(200, 162, 122, 0.12) 0%, transparent 60%);
+  border: 1.5px solid #C8A27A;
+  border-radius: 12px;
+  padding: 42px 36px;
+  position: relative;
+  box-shadow: 
+    0 25px 60px -12px rgba(36, 20, 26, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.6) inset,
+    0 0 25px rgba(200, 162, 122, 0.15) inset;
+  transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+/* Thin Decorative Border Inset */
+.invitation-inner-border {
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(200, 162, 122, 0.55);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.invitation-corner-ornament {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: #C8A27A;
+  border-style: solid;
+  pointer-events: none;
+}
+
+.invitation-corner-ornament.top-left {
+  top: 8px;
+  left: 8px;
+  border-width: 2px 0 0 2px;
+}
+
+.invitation-corner-ornament.top-right {
+  top: 8px;
+  right: 8px;
+  border-width: 2px 2px 0 0;
+}
+
+.invitation-corner-ornament.bottom-left {
+  bottom: 8px;
+  left: 8px;
+  border-width: 0 0 2px 2px;
+}
+
+.invitation-corner-ornament.bottom-right {
+  bottom: 8px;
+  right: 8px;
+  border-width: 0 2px 2px 0;
+}
+
+/* Headings */
+.invitation-subtitle {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #7A4A56;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.invitation-title {
+  font-family: var(--font-serif-heading);
+  font-size: 2.5rem;
+  color: #4B2633;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin-bottom: 6px;
+}
+
+.invitation-quote {
+  font-family: var(--font-serif-subheading);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: #5F4E54;
+  margin-bottom: 24px;
+}
+
+/* Clearly Visible Credentials Box */
+.credentials-box {
+  background: rgba(75, 38, 51, 0.04);
+  border: 1px dashed rgba(200, 162, 122, 0.8);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.credential-pill {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.92rem;
+  background: #FFFFFF;
+  border: 1px solid rgba(200, 162, 122, 0.4);
+  border-radius: 6px;
+  padding: 3px 10px;
+  color: #4B2633;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* Form Controls */
+.invitation-input {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(200, 162, 122, 0.6) !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  font-family: var(--font-sans) !important;
+  color: #241C1E !important;
+  font-size: 0.95rem !important;
+  transition: all 0.25s ease !important;
+}
+
+.invitation-input:focus {
+  border-color: #4B2633 !important;
+  box-shadow: 0 0 0 3px rgba(75, 38, 51, 0.15) !important;
+}
+
+/* Premium Enter Button */
+.btn-enter-invitation {
+  background: linear-gradient(135deg, #4B2633 0%, #683445 100%);
+  color: #FFFFFF !important;
+  border: 1px solid #7A4A56;
+  border-radius: 30px;
+  padding: 15px 32px;
+  font-family: var(--font-sans);
+  font-size: 0.96rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 22px rgba(75, 38, 51, 0.35);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-enter-invitation .arrow-icon {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-enter-invitation:hover {
+  background: linear-gradient(135deg, #5D2E3E 0%, #7A4A56 100%);
+  border-color: #C8A27A;
+  box-shadow: 0 10px 30px rgba(75, 38, 51, 0.45), 0 0 20px rgba(200, 162, 122, 0.4);
+  transform: translateY(-2px);
+  letter-spacing: 0.14em;
+}
+
+.btn-enter-invitation:hover .arrow-icon {
+  transform: translateX(6px);
+}
+
+/* Custom Animated Error Message (No Alert Boxes) */
+.invitation-error-banner {
+  background: #FFF1F0;
+  border: 1px solid #FFA39E;
+  color: #CF1322;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 0.88rem;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: shakeError 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shakeError {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+/* Wax Seal Monogram Component */
+.wax-seal-wrapper {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.wax-seal-body {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #A82B33 0%, #731A21 60%, #4A0E13 100%);
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.4),
+    0 2px 4px rgba(255, 255, 255, 0.35) inset,
+    0 -3px 8px rgba(0, 0, 0, 0.5) inset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #5C151B;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.wax-seal-rim {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(255, 255, 255, 0.28);
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.4);
+}
+
+.wax-seal-monogram {
+  font-family: var(--font-serif-heading);
+  font-weight: 700;
+  font-size: 1.55rem;
+  color: #FAF4EB;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  letter-spacing: -0.04em;
+  transform: translateY(-1px);
+}
+
+/* Physical 3D Envelope Geometry */
+.envelope-3d-stage {
+  perspective: 1500px;
+  width: 380px;
+  height: 250px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.envelope-3d-box {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+/* Back of the envelope */
+.envelope-back {
+  position: absolute;
+  inset: 0;
+  background: #3B1B26;
+  border-radius: 8px;
+  box-shadow: 0 35px 70px rgba(0, 0, 0, 0.65);
+  border: 1.5px solid #C8A27A;
+}
+
+/* Inner lining of envelope */
+.envelope-lining {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background: #2D141D;
+  border-radius: 4px;
+}
+
+/* Sliding Letter Card (inside envelope) */
+.envelope-sliding-letter {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 15px;
+  height: 210px;
+  background: #FAF6EF;
+  border-radius: 6px;
+  box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.25);
+  padding: 20px;
+  color: #241C1E;
+  z-index: 2;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(200, 162, 122, 0.4);
+}
+
+/* Front folded triangles of envelope */
+.envelope-front-pocket {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #4B2633 65%, #3B1B26 100%);
+  clip-path: polygon(0% 0%, 50% 50%, 100% 0%, 100% 100%, 0% 100%);
+  z-index: 4;
+  border-radius: 0 0 8px 8px;
+}
+
+/* Triangular Flap (top) */
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 135px;
+  background: #351722;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  transform-origin: top center;
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 5;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.envelope-flap.open {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+/* Wax Seal on Envelope */
+.envelope-seal-position {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 6;
+}
+
+/* Fullscreen Unfolded Letter Experience */
+.unfolded-letter-card {
+  max-width: 680px;
+  width: 100%;
+  background: #FAF6EF;
+  background-image: 
+    linear-gradient(to bottom, #FAF6EF 0%, #F5ECE0 100%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+  border: 1.5px solid #C8A27A;
+  border-radius: 12px;
+  padding: 48px 42px;
+  box-shadow: 
+    0 35px 90px rgba(18, 9, 13, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.7) inset;
+  position: relative;
+  z-index: 15;
+}
+
+/* Skip Button */
+.btn-skip-animation {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(200, 162, 122, 0.6);
+  color: #4B2633;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-skip-animation:hover {
+  background: #4B2633;
+  color: #FFFFFF;
+  border-color: #4B2633;
+  transform: translateY(-2px);
+}
+
+/* Full Page Expanding Wash into Home */
+.home-expand-wash {
+  position: fixed;
+  inset: 0;
+  background: #F8F3EE;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.home-expand-wash.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+@media (max-width: 576px) {
+  .invitation-stage {
+    padding: 16px;
+  }
+  .invitation-card {
+    padding: 28px 16px;
+    max-width: calc(100vw - 32px);
+  }
+  .invitation-title {
+    font-size: clamp(1.8rem, 6vw, 2.2rem);
+  }
+  .envelope-3d-stage {
+    width: min(320px, calc(100vw - 32px));
+    height: 200px;
+  }
+  .envelope-sliding-letter {
+    left: 12px;
+    right: 12px;
+    height: 180px;
+    padding: 14px;
+  }
+  .envelope-flap {
+    height: 110px;
+  }
+  .envelope-seal-position {
+    top: 80px;
+  }
+  .unfolded-letter-card {
+    padding: 24px 16px;
+    max-width: calc(100vw - 28px);
+  }
+  .btn-skip-animation {
+    bottom: max(16px, calc(env(safe-area-inset-bottom) + 8px));
+    right: max(16px, calc(env(safe-area-inset-right) + 8px));
+    padding: 6px 14px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .invitation-card {
+    padding: 22px 10px;
+  }
+  .credential-pill {
+    font-size: 0.82rem;
+    padding: 2px 6px;
+  }
+  .wax-seal-body {
+    width: 64px;
+    height: 64px;
+  }
+  .wax-seal-monogram {
+    font-size: 1.3rem;
+  }
+}

@@ -30,7 +30,7 @@ export const AdminAuthorPage = () => {
       await api.admin.updateAuthor(author);
       setAlert({ type: 'success', text: 'Author profile updated successfully!' });
     } catch (err) {
-      setAlert({ type: 'danger', text: 'Failed to update author profile' });
+      setAlert({ type: 'danger', text: err.message || 'Failed to update author profile' });
     } finally {
       setSaving(false);
     }
@@ -107,8 +107,8 @@ export const AdminAuthorPage = () => {
           <label className="form-label small fw-bold">Portrait Image Path</label>
           <input 
             type="text" 
-            value={author.portrait_image}
-            onChange={e => setAuthor({ ...author, portrait_image: e.target.value })}
+            value={author.portrait_image || author.portrait || ''}
+            onChange={e => setAuthor({ ...author, portrait_image: e.target.value, portrait: e.target.value })}
             className="form-control"
           />
         </div>

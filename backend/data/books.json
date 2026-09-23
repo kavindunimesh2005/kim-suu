@@ -1,141 +1,94 @@
 [
   {
     "id": "book-1",
+    "title": "Hulu Aththa",
     "slug": "hulu-aththa",
     "title_si": "හුළු අත්ත",
     "title_en": "Hulu Aththa",
-    "author": "Kim Suu Ah (සුචේතා කපුආරච්චි)",
-    "subtitle_si": "ස්වභාවධර්මයේ නිහඬතාව සහ ගැඹුරු ප්‍රේමයේ අභිරහස",
-    "subtitle_en": "The Silence of Nature & The Mystery of Profound Love",
-    "genre": "Romantic Literary Fiction / Nature Fiction",
-    "isbn": "978-955-4921-01-2",
-    "published_year": "2024",
-    "pages": 312,
-    "publisher": "Grantha Publishers Sri Lanka",
-    "status": "published",
+    "description_si": "කඳුකරයේ නිහඬ වැසි සන්ධ්‍යාවක ලී කුටියක් අසලින් ආරම්භ වන ආදරය, විරහව සහ සොබාදහමේ සුවදායක ස්පර්ශය කැටිවුණු සංවේදී සාහිත්‍ය කෘතියක්.",
+    "description_en": "A deeply lyrical journey nestled within the misty mountains and tranquil lake cabin. Exploring the tenderness of unspoken longing and the healing grace of nature.",
+    "full_description_si": "කඳුකරයේ සීතල හුළඟ විඳින ගමන්, ආතාගේ පොඩි පෙට්ටි කඩෙන් උණු උණුවේ කිරි කෝපි එකක් බොන්න යන්න ඔයත් එනවද? කැලෑ මල් පොකුරු කඩාන, සහන් එක්ක ගඟේ ඔරු පැදලා, චූටි කුකූ එක්ක කඳු මුදුනේ තරඟෙට දුවලා, අදීර එක්ක ඔන්චිල්ලාවේ වාඩි වෙලා ඈත කඳුකරය දිහා බලාන කතා කරන්නත් පුළුවන්.. ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ ඉතින්, එනවද යන්න මාත් එක්ක, හුළු අතු එළියෙන් එළිය වුන සීතල කඳුකරය බලන්න...?",
+    "full_description_en": "While enjoying the cold wind in the mountains, will you also come to drink a hot milky coffee from Atha's little box shop? We can pick bunches of wild flowers, row a canoe on the river with Sahan, race on the mountaintop with the little cuckoo, and sit on the swing with Adeera and look at the distant mountains while talking.. ㅤ",
     "cover_image": "/assets/huluaththa-cover.jpg",
     "backdrop_image": "/assets/huluaththa-landscape.jpg",
-    "theme_id": "huluAththa",
+    "author": "Suchetha Kapuarachchi",
+    "genre": "Literary Fiction / Romantic Nature Drama",
+    "publication_date": "2026",
+    "published_year": "2026",
+    "pages": 204,
+    "publisher": "Bharana Books",
+    "price_lkr": 1450,
+    "isbn": "978-624-4873-07-5",
     "theme": {
+      "accent": "#D9C7A3",
+      "background": "#F4F6ED",
       "primary": "#718A68",
       "secondary": "#A8B89C",
-      "background": "#F4F6ED",
-      "text": "#263126",
-      "accent": "#D9C7A3",
-      "name": "Light Green / Natural Forest Theme"
+      "text": "#263126"
     },
-    "description_si": "මීදුම් පිරි කඳුකර නිම්නයක, ලී කුටියක් අසබඩ දෝලනය වන ඔංචිල්ලාවක රැඳුණු මතක සටහන් සහ ස්වභාවධර්මයේ ජීවය සමග බැඳුණු අපූර්ව ආදර අන්දරයයි. නිහඬ ගං ඉවුරත්, පිනි මිදුණු පයින් වනාන්තරයත් සාක්ෂි දරන මේ කතාව පාඨකයා රැගෙන යන්නේ මිනිස් හදවතක ගැඹුරුම සංවේදනා වෙතය.",
-    "description_en": "Set amidst mist-shrouded mountain valleys and a secluded wooden cabin by a serene lake, Hulu Aththa weaves a poignant tale of unspoken bonds, nature's silent companionship, and an enduring romantic journey that echoes through forest whispers and tranquil waters.",
-    "full_description_si": "හුළු අත්ත යනු කඳුකර හුදෙකලාව සහ මිනිස් ආත්මයේ සදාකාලික ප්‍රේමය එකට මුණගැසෙන ලක්ෂ්‍යයයි. කඳු පාමුල වූ ලී කුටිය, ජලාශය අසබඩ ඇති පැරණි ලී ඔංචිල්ලාව, සහ පරිසරයේ ජීවය ලබාදෙන හරිත සමනලුන් අතරින් කතාව දිගහැරේ. සුචේතා කපුආරච්චිගේ සිත් ඇදගන්නාසුළු වචන හරඹය සහ කාව්‍යමය භාෂා ශෛලිය පාඨක මනස සුවපත් කරවන අත්දැකීමක් බවට පත් කරයි.",
-    "full_description_en": "Hulu Aththa stands as a testament to the quiet power of love nurtured in nature's lap. Through the lens of the lakeside log cabin and the rhythmic sway of the wooden swing under ancient canopy trees, Suchetha crafts a lyrical narrative where every falling leaf and rippling wave mirrors the profound emotions of the soul.",
     "quotes": [
       {
-        "quote_si": "ස්වභාවධර්මය නිහඬ වූ විට, හදවතේ ගැඹුරුම ස්වරය වඩාත් පැහැදිලිව ඇසේ.",
-        "quote_en": "When nature turns silent, the deepest melodies of the heart resonate the clearest.",
-        "context": "හුළු අත්ත - පරිච්ඡේදය 4"
+        "context": "හුළු අත්ත - පරිච්ඡේදය 4",
+        "quote_en": "Some things truly become ours only after we have learned to let them go.",
+        "quote_si": "සමහර දේවල් අපිට අයිති වෙන්නේ ඒවා අතහැරියාට පස්සෙයි."
       },
       {
-        "quote_si": "ප්‍රේමය යනු කුණාටුවක් නොව, වැසි අවසානයේ කඳු මුදුන සිපගන්නා උදා හිරු කිරණකි.",
-        "quote_en": "Love is not a tempest, but the gentle morning ray kissing the mist-laden peaks after rain.",
-        "context": "හුළු අත්ත - පරිච්ඡේදය 9"
+        "context": "හුළු අත්ත - පරිච්ඡේදය 11",
+        "quote_en": "The mist embraces the mountain not to conceal it, but to love its quiet solitude.",
+        "quote_si": "මීදුම කන්ද වැළඳගන්නේ එය සඟවන්නට නොව, එහි හුදෙකලාවට ආදරය කරන්නටය."
       }
     ],
-    "highlights": [
-      "හදවත සුවපත් කරවන කාව්‍යමය පරිසර වර්ණනා",
-      "ශ්‍රී ලාංකීය පාඨක ප්‍රජාව අතර මහත් ආදරය දිනූ කෘතියක්",
-      "ප්‍රේමය, සොබාදහම සහ සන්සුන් ජීවන දැක්ම"
-    ],
-    "gallery_assets": [
+    "gallery": [
       {
-        "image": "/assets/huluaththa-landscape.jpg",
-        "caption_si": "කඳුකර නිම්නයේ ලී කුටිය හා ජලාශය",
-        "caption_en": "The Mountain Valley Cabin & Peaceful Lake"
+        "caption_en": "The Lake & Mountain Cabin of Hulu Aththa",
+        "caption_si": "හුළු අත්ත නිම්නයේ වැව හා ලී කුටිය",
+        "image": "/assets/huluaththa-landscape.jpg"
       },
       {
-        "image": "/assets/tree-swing.png",
-        "caption_si": "පැරණි ගස යට ලී ඔංචිල්ලාව",
-        "caption_en": "The Rustic Swing Beneath the Sacred Canopy"
-      },
-      {
-        "image": "/assets/cabin-cutout.png",
-        "caption_si": "සන්ධ්‍යා එළියෙන් දැල්වෙන කඳුකර කුටිය",
-        "caption_en": "The Golden Lit Cabin of Solitude"
-      },
-      {
-        "image": "/assets/green-butterfly.png",
-        "caption_si": "හුළු අත්ත නිම්නයේ හරිත සමනලයා",
-        "caption_en": "The Emerald Butterfly of the Valley"
-      },
-      {
-        "image": "/assets/lake-boat-watercolor.png",
-        "caption_si": "නෙළුම් විල මැද ඔරු පැදීම",
-        "caption_en": "Drifting on the Lotus Waters"
+        "caption_en": "The Secluded Timber Cabin",
+        "caption_si": "කඳුකරයේ හුදෙකලා ලී කුටිය",
+        "image": "/assets/cabin-cutout.png"
       }
     ],
-    "order_available": true,
-    "price_lkr": 1450,
-    "reviews": [
-      {
-        "reviewer": "නිර්මලා විජේසිංහ (සාහිත්‍ය විචාරිකා)",
-        "rating": 5,
-        "comment_si": "සිංහල නවකතා කලාව තුළ මෑත යුගයේ හමුවූ ඉතාම සුන්දර, ආත්මීය හා සුවදායක කියවීමක්.",
-        "comment_en": "One of the most soul-stirring, lyrical and comforting reads in contemporary Sri Lankan literature."
-      },
-      {
-        "reviewer": "කසුන් රාජපක්ෂ",
-        "rating": 5,
-        "comment_si": "හුළු අත්ත කියවා අවසන් වන විට මාත් ඒ කඳුකරයේ ලී කුටිය අසල ජීවත් වුණා වැනි හැඟීමක් දැනුණා.",
-        "comment_en": "By the time I finished reading, it felt as if I had truly lived by that lakeside wooden cabin."
-      }
-    ]
+    "published": true,
+    "created_at": "2024-01-15T10:00:00Z",
+    "updated_at": "2026-09-23T18:02:17.261642+00:00"
   },
   {
     "id": "book-2",
+    "title": "Arungal",
     "slug": "arungal",
     "title_si": "අරුංගල්",
     "title_en": "Arungal",
-    "author": "සුචේතා කපුආරච්චි (Suchetha Kapuarachchi)",
-    "subtitle_si": "පාරම්පරික අරුංගලය සහ පරම්පරා යාකළ ශුද්ධ ප්‍රේමය",
-    "subtitle_en": "The Heritage Earring & The Sacred Romance of Generations",
-    "genre": "Cultural Romance / Literary Drama",
-    "isbn": "978-955-4921-02-9",
-    "published_year": "2025",
-    "pages": 368,
-    "publisher": "Grantha Publishers Sri Lanka",
-    "status": "published",
+    "description_si": "නෙළුම් මලින් හැඩවැඩ වූ රන්වන් අරුංගලයක සැඟවුණු ඉපැරණි රහසක්, අභිමානවත් උරුමයක් සහ හදවත් දෙකක බැඳීමක් වටා ගෙතුණු සදාතනික ප්‍රේම කාව්‍යයයි.",
+    "description_en": "Centered around an intricate heirloom lotus earring passed across generations, Arungal weaves a rich cultural romance of sacred vows, honor, and unspoken longing.",
+    "full_description_si": "පරසතු මල් පිපෙන්න ඕනි මඩ ගොහොරක නෙවෙයි... මඩ වතුරකට බැහැ පරසතු මල් අග රැදෙන පිනි බිදුවක් වෙන්න... කොයි තරම් ආස වුණත්...!  ඉතින් එහෙනම්, මඩ දිය පොදකට බැරිද පරසතු මලක් සිප ගන්නා පිනි බිදුවක් වෙන්න? එහෙත්, මඩ දිය පොදට ආස වුණත් ළං වෙන්න බැරි ඒ පරසතු මල කවුරුන්ද? ",
+    "full_description_en": "Parasathu flowers should bloom, not in a muddy swamp... Muddy water cannot become a dewdrop that rests on the tip of a parasathu flower... No matter how much it wants to...!  So then, can't a drop of muddy water become a dewdrop that kisses a parasathu flower? But, who is that parasathu flower that even though it wants to, cannot get close to the drop of muddy water?",
     "cover_image": "/assets/arungal-cover.png",
     "backdrop_image": "/assets/arungal-couple.jpg",
-    "theme_id": "arungal",
+    "author": "Suchetha Kapuarachchi",
+    "genre": "Cultural Romance / Literary Drama",
+    "publication_date": "2026",
+    "published_year": "2026",
+    "pages": 256,
+    "publisher": "Bharana Books",
+    "price_lkr": 1650,
+    "isbn": " 978-624-4873-09-9",
     "theme": {
       "primary": "#6B4632",
       "secondary": "#8B6349",
       "background": "#F3E9DD",
       "text": "#2E211A",
-      "accent": "#B68A5A",
-      "name": "Warm Brown / Earthy Literary Theme"
+      "accent": "#B68A5A"
     },
-    "description_si": "නෙළුම් මලින් හැඩවැඩ වූ රන්වන් අරුංගලයක සැඟවුණු ඉපැරණි රහසක්, අභිමානවත් උරුමයක් සහ හදවත් දෙකක බැඳීමක් වටා ගෙතුණු සදාතනික ප්‍රේම කාව්‍යයයි. සාම්ප්‍රදායික ශ්‍රී ලාංකීය සංස්කෘතික රිද්මයත්, ගැඹුරු සංවේදී ප්‍රේමයත් මනාව මුසු කරමින් පාඨකයා සිනමාත්මක ගමනකට රැගෙන යයි.",
-    "description_en": "Centered around an intricate heirloom lotus earring passed across generations, Arungal weaves a rich cultural romance of sacred vows, honor, unspoken longing, and a love that transcends societal boundaries in royal and traditional Sri Lankan society.",
-    "full_description_si": "අරුංගල් යනු සිංහල සභ්‍යත්වයේ ගෞරවාන්විත චමත්කාරය සහ යොවුන් ප්‍රේමයේ සදාතනික උද්වේගය මනාව චිත්‍රණය කරන විශිෂ්ට කෘතියකි. නෙළුම් මලක හැඩය ගත් මාණික්‍ය ඔබ්බවන ලද අරුංගලය සංකේතවත් කරන්නේ ගැහැනියකගේ ආත්ම ශක්තිය සහ පාරිශුද්ධ ප්‍රේමයයි. සුචේතා කපුආරච්චිගේ ගැඹුරු චරිත නිරූපණය සහ සජීවී ආඛ්‍යානය පාඨකයා මන්මත් කරවයි.",
-    "full_description_en": "Arungal is a tribute to heritage, grace, and unbreakable love. Through the iconic lotus-jeweled jhumka, the narrative unravels generations of sacrifices, emotional resilience, and an undying love story that echoes through palace corridors and fragrant temple courtyards.",
     "quotes": [
       {
         "quote_si": "අරුංගලයක බර දරන්නේ කන පමණක් නොවේ; එය මුළු පරම්පරාවකම ආදරයේ සහ කැපවීමේ බරයි.",
         "quote_en": "An earring bears not just the weight of gold, but the weight of generations of love and sacrifice.",
         "context": "අරුංගල් - පරිච්ඡේදය 7"
-      },
-      {
-        "quote_si": "ඇගේ නෙතඟ රැඳි කඳුළු බිඳුව තුළත් දිදුලුවේ ඒ රන් අරුංගලයේ බැබළීමයි.",
-        "quote_en": "Even in the tear that rested at the corner of her eyes, the golden luster of the arungal gleamed.",
-        "context": "අරුංගල් - පරිච්ඡේදය 14"
       }
     ],
-    "highlights": [
-      "සාම්ප්‍රදායික උරුමය සහ පෞරාණික ශ්‍රී ලාංකීය පසුබිම",
-      "සිනමාත්මක ගලායාම සහ අතිශය සංවේදී ප්‍රේම අත්දැකීම",
-      "පාඨක ප්‍රසාදය නොමඳව දිනූ ප්‍රශස්ත නවකතාවක්"
-    ],
-    "gallery_assets": [
+    "gallery": [
       {
         "image": "/assets/arungal-couple.jpg",
         "caption_si": "අරුංගල් චරිත ප්‍රේම දැක්ම",
@@ -145,38 +98,10 @@
         "image": "/assets/arungal-jhumka.png",
         "caption_si": "නෙළුම් මාණික්‍ය රන් අරුංගලය",
         "caption_en": "The Heirloomed Lotus Ruby Jhumka"
-      },
-      {
-        "image": "/assets/arungal-hands.png",
-        "caption_si": "අත් මඟුලට අරුංගල් පිදීම",
-        "caption_en": "The Sacred Offering of the Lotus Earring"
-      },
-      {
-        "image": "/assets/pink-lotus.png",
-        "caption_si": "අරුංගල් සංකේතවත් නෙළුම් මල",
-        "caption_en": "The Sacred Lotus of Purity & Royalty"
-      },
-      {
-        "image": "/assets/red-mandala.png",
-        "caption_si": "සාම්ප්‍රදායික ලියවැල මෝස්තරය",
-        "caption_en": "The Traditional Sri Lankan Red Mandala"
       }
     ],
-    "order_available": true,
-    "price_lkr": 1650,
-    "reviews": [
-      {
-        "reviewer": "මහාචාර්ය ආනන්ද සෙනෙවිරත්න",
-        "rating": 5,
-        "comment_si": "පාරම්පරික සාරධර්ම සහ සංවේදී ප්‍රේමය මෙතරම් අපූරුවට එකට ගැටගැසූ වෙනත් කෘතියක් මෑතකදී හමු වී නැත.",
-        "comment_en": "A rare masterpiece that seamlessly interweaves ancestral legacy and delicate emotional romance."
-      },
-      {
-        "reviewer": "සඳමාලි ද සිල්වා",
-        "rating": 5,
-        "comment_si": "අරුංගල් කියවා මගේ දෙනෙතට කඳුළු ආවා. සුචේතාගේ ලිවීම හදවතටම කතා කරනවා.",
-        "comment_en": "Arungal brought tears to my eyes. Suchetha's writing speaks straight to the depths of the soul."
-      }
-    ]
+    "published": true,
+    "created_at": "2025-05-20T10:00:00Z",
+    "updated_at": "2026-09-23T08:00:00Z"
   }
 ]

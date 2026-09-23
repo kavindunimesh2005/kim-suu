@@ -5,7 +5,7 @@ const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
   const [lang, setLang] = useState(() => {
-    return localStorage.getItem('author_lang') || 'si';
+    return localStorage.getItem('author_lang') || 'en';
   });
 
   const toggleLanguage = (selectedLang) => {
@@ -18,7 +18,7 @@ export const LanguageProvider = ({ children }) => {
     document.documentElement.lang = lang;
   }, [lang]);
 
-  // Translation helper function
+  // Translation lookup helper
   const t = (path) => {
     const keys = path.split('.');
     let current = translations[lang];
@@ -26,7 +26,7 @@ export const LanguageProvider = ({ children }) => {
       if (current && current[key] !== undefined) {
         current = current[key];
       } else {
-        // Fallback to English if key missing
+        // Fallback to English if translation missing
         let fallback = translations['en'];
         for (const fbKey of keys) {
           if (fallback && fallback[fbKey] !== undefined) {

@@ -1,121 +1,105 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { api } from '../services/api';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  // Visitor Invitation State
+  // Visitor Invitation Unlocked State
   const [isInvitationUnlocked, setIsInvitationUnlocked] = useState(() => {
     return sessionStorage.getItem('invitation_unlocked') === 'true';
   });
 
-  // Admin Authentication State
-  const [adminUser, setAdminUser] = useState(null);
-  const [token, setToken] = useState(() => {
-    return localStorage.getItem('admin_token') || null;
+  // Admin Session State
+  const [adminUser, setAdminUser] = useState(() => {
+    try {
+      const saved = localStorage.getItem('admin_user');
+      return saved ? JSON.parse(saved) : null;
+    } catch (e) {
+      return null;
+    }
   });
-  const [isVerifyingAdmin, setIsVerifyingAdmin] = useState(true);
 
-  // Check admin session validity on load
-  useEffect(() => {
-    const verifyToken = async () => {
-      if (!token) {
-        setIsVerifyingAdmin(false);
-        return;
-      }
-      try {
-        const res = await fetch('/api/admin/verify', {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-        if (res.ok) {
-          const data = await res.json();
-          setAdminUser(data.user);
-        } else {
-          // Token expired or invalid
-          setToken(null);
-          setAdminUser(null);
-          localStorage.removeItem('admin_token');
-        }
-      } catch (err) {
-        console.error("Token verification error:", err);
-      } finally {
-        setIsVerifyingAdmin(false);
-      }
-    };
-    verifyToken();
-  }, [token]);
+  const [isVerifyingAdmin, setIsVerifyingAdmin] = useState(false);
+
+  // Computed authentication status
+  const isAuthenticated = Boolean(adminUser && localStorage.getItem('admin_token'));
 
   // Visitor Invitation Verification
   const verifyInvitation = (username, password) => {
-    const cleanUser = (username || '').trim();
+    const cleanUser = (username || '').trim().toLowerCase();
     const cleanPass = (password || '').trim();
-    
-    // Invitation credentials specified in the prompt:
+
+    // Required credentials:
     // Username: Kim Suu Ah
     // Password: 20-09-2026
-    if (cleanUser.toLowerCase() === 'kim suu ah' && cleanPass === '20-09-2026') {
+    if (cleanUser === 'kim suu ah' && cleanPass === '20-09-2026') {
       sessionStorage.setItem('invitation_unlocked', 'true');
       setIsInvitationUnlocked(true);
       return { success: true };
     }
-    return { success: false, message: 'ආරාධනා අක්තපත්‍ර වැරදියි. කරුණාකර නැවත උත්සාහ කරන්න.' };
+
+    return {
+      success: false,
+      message: 'The invitation does not recognize these details.'
+    };
   };
 
-  const lockInvitation = () => {
-    sessionStorage.removeItem('invitation_unlocked');
-    setIsInvitationUnlocked(false);
+  const unlockInvitationDirectly = () => {
+    sessionStorage.setItem('invitation_unlocked', 'true');
+    setIsInvitationUnlocked(true);
   };
 
-  // Admin Login via Backend API
-  const adminLogin = async (username, password) => {
+  // Real Admin Login calling Flask REST API
+  const loginAdmin = async (username, password) => {
     try {
-      const res = await fetch('/api/admin/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      });
-      const data = await res.json();
-      if (res.ok && data.success) {
-        setToken(data.auth.token);
-        setAdminUser(data.auth);
-        localStorage.setItem('admin_token', data.auth.token);
-        return { success: true };
-      } else {
-        return { success: false, error: data.error || 'Login failed' };
+      const res = await api.admin.login(username, password);
+      if (res && res.success && res.token) {
+        localStorage.setItem('admin_token', res.token);
+        localStorage.setItem('admin_user', JSON.stringify(res.user));
+        setAdminUser(res.user);
+        return { success: true, user: res.user };
       }
+      return {
+        success: false,
+        message: res?.error || 'Invalid administrative credentials.'
+      };
     } catch (err) {
-      return { success: false, error: 'Could not connect to backend server' };
+      console.error('Admin login error:', err);
+      return {
+        success: false,
+        message: 'Could not connect to authentication server. Please ensure the backend is running.'
+      };
     }
   };
 
   // Admin Logout
-  const adminLogout = async () => {
-    if (token) {
-      try {
-        await fetch('/api/admin/logout', {
-          method: 'POST',
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-      } catch (e) {
-        // Ignore network errors on logout
-      }
+  const logoutAdmin = async () => {
+    try {
+      await api.admin.logout();
+    } catch (e) {
+      // Ignore network errors on logout
     }
-    setToken(null);
-    setAdminUser(null);
     localStorage.removeItem('admin_token');
+    localStorage.removeItem('admin_user');
+    localStorage.removeItem('admin_mock_user');
+    setAdminUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{
-      isInvitationUnlocked,
-      verifyInvitation,
-      lockInvitation,
-      adminUser,
-      token,
-      isAuthenticated: !!token && !!adminUser,
-      isVerifyingAdmin,
-      adminLogin,
-      adminLogout
-    }}>
+    <AuthContext.Provider
+      value={{
+        isInvitationUnlocked,
+        verifyInvitation,
+        unlockInvitationDirectly,
+        adminUser,
+        isAuthenticated,
+        isVerifyingAdmin,
+        loginAdmin,
+        adminLogin: loginAdmin,
+        logoutAdmin,
+        adminLogout: logoutAdmin
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -4,9 +4,12 @@ import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 
-// Common Components
-import { Navbar } from './components/common/Navbar';
-import { Footer } from './components/common/Footer';
+// Layout Components
+import { Navbar } from './components/layout/Navbar';
+import { Footer } from './components/layout/Footer';
+import { AdminLayout } from './layouts/AdminLayout';
+import { MusicProvider } from './components/music/MusicProvider';
+import { MusicButton } from './components/music/MusicButton';
 
 // Public Pages
 import { InvitationPage } from './pages/InvitationPage';
@@ -14,15 +17,13 @@ import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { BooksPage } from './pages/BooksPage';
 import { BookDetailPage } from './pages/BookDetailPage';
-import { StoriesPage } from './pages/StoriesPage';
 import { BlogPage } from './pages/BlogPage';
 import { BlogDetailPage } from './pages/BlogDetailPage';
 import { GalleryPage } from './pages/GalleryPage';
 import { ContactPage } from './pages/ContactPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
-// Admin Layout & Pages
-import { AdminLayout } from './layouts/AdminLayout';
+// Admin Pages
 import { AdminLoginPage } from './pages/admin/AdminLoginPage';
 import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
 import { AdminBooksPage } from './pages/admin/AdminBooksPage';
@@ -33,7 +34,7 @@ import { AdminAuthorPage } from './pages/admin/AdminAuthorPage';
 import { AdminMessagesPage } from './pages/admin/AdminMessagesPage';
 import { AdminSettingsPage } from './pages/admin/AdminSettingsPage';
 
-// Layout wrapper for Public Pages (with Navbar & Footer)
+// Layout wrapper for Public Pages
 const PublicLayout = () => {
   return (
     <div className="d-flex flex-column min-vh-100">
@@ -42,6 +43,7 @@ const PublicLayout = () => {
         <Outlet />
       </main>
       <Footer />
+      <MusicButton />
     </div>
   );
 };
@@ -62,10 +64,10 @@ function App() {
     <AuthProvider>
       <ThemeProvider>
         <LanguageProvider>
-          <Router>
-            <Routes>
-              
-              {/* Initial Welcome / Invitation Experience */}
+          <MusicProvider>
+            <Router>
+              <Routes>
+              {/* Initial Welcome / Cinematic Invitation Experience */}
               <Route path="/" element={<RootEntry />} />
               <Route path="/invitation" element={<InvitationPage />} />
 
@@ -75,14 +77,13 @@ function App() {
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/books" element={<BooksPage />} />
                 <Route path="/books/:slug" element={<BookDetailPage />} />
-                <Route path="/stories" element={<StoriesPage />} />
                 <Route path="/blog" element={<BlogPage />} />
                 <Route path="/blog/:slug" element={<BlogDetailPage />} />
                 <Route path="/gallery" element={<GalleryPage />} />
                 <Route path="/contact" element={<ContactPage />} />
               </Route>
 
-              {/* Admin Portal (Isolated & Secure) */}
+              {/* Admin Portal */}
               <Route path="/admin/login" element={<AdminLoginPage />} />
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<Navigate to="/admin/dashboard" replace />} />
@@ -100,12 +101,12 @@ function App() {
               <Route element={<PublicLayout />}>
                 <Route path="*" element={<NotFoundPage />} />
               </Route>
-
             </Routes>
           </Router>
-        </LanguageProvider>
-      </ThemeProvider>
-    </AuthProvider>
+        </MusicProvider>
+      </LanguageProvider>
+    </ThemeProvider>
+  </AuthProvider>
   );
 }
 

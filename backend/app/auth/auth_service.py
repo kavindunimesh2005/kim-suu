@@ -1,80 +1,71 @@
-import secrets
-import time
-from functools import wraps
-from flask import request, jsonify
+"""Authentication service handling admin login and credential verification."""
+from datetime import datetime, timezone
+from typing import Tuple, Optional, Dict, Any
 from werkzeug.security import check_password_hash, generate_password_hash
-from app.services.data_service import get_single, update_single
+from backend.app.services.data_service import get_single, update_single
+from backend.app.auth.tokens import generate_token
 
-# Active session tokens dictionary {token: {"username": ..., "expires_at": ...}}
-ACTIVE_SESSIONS = {}
-SESSION_EXPIRY_SECONDS = 86400  # 24 hours
 
-def authenticate_admin(username, password):
-    admin_data = get_single('admin')
-    admin_info = admin_data.get('admin', {})
+def authenticate_admin(username: str, password: str) -> Tuple[bool, Optional[Dict[str, Any]], Optional[str]]:
+    """
+    Authenticate admin credentials against admin.json.
     
-    stored_username = admin_info.get('username')
-    stored_hash = admin_info.get('password_hash')
+    Returns:
+        (success: bool, auth_data: Optional[dict], error: Optional[str])
+    """
+    if not username or not password:
+        return False, None, "Username and password are required"
+        
+    admin_data = get_single("admin")
+    if isinstance(admin_data, dict) and "admin" in admin_data and isinstance(admin_data["admin"], dict):
+        admin_data = admin_data["admin"]
+        
+    if not admin_data or "password_hash" not in admin_data:
+        return False, None, "Admin account not properly configured"
+        
+    stored_username = admin_data.get("username", "")
+    if username.strip().lower() != stored_username.strip().lower():
+        return False, None, "Invalid username or password"
+        
+    if not check_password_hash(admin_data["password_hash"], password):
+        return False, None, "Invalid username or password"
+        
+    # Successful authentication
+    admin_id = admin_data.get("id", "admin-1")
+    token = generate_token(
+        user_id=admin_id,
+        username=stored_username,
+        role=admin_data.get("role", "admin")
+    )
     
-    if not stored_username or not stored_hash:
-        return None, "Admin not configured"
-        
-    if username != stored_username:
-        return None, "Invalid username or password"
-        
-    if not check_password_hash(stored_hash, password):
-        return None, "Invalid username or password"
-        
-    # Generate secure token
-    token = secrets.token_urlsafe(32)
-    expires_at = time.time() + SESSION_EXPIRY_SECONDS
-    ACTIVE_SESSIONS[token] = {
+    # Update last login timestamp
+    update_single("admin", {
+        "last_login": datetime.now(timezone.utc).isoformat()
+    })
+    
+    user_info = {
+        "id": admin_id,
         "username": stored_username,
-        "name": admin_info.get("name", "Admin"),
-        "role": admin_info.get("role", "admin"),
-        "expires_at": expires_at
+        "name": admin_data.get("name", "Admin"),
+        "role": admin_data.get("role", "admin")
     }
     
-    return {
-        "token": token,
-        "username": stored_username,
-        "name": admin_info.get("name", "Admin"),
-        "role": admin_info.get("role", "admin"),
-        "expires_in": SESSION_EXPIRY_SECONDS
-    }, None
+    return True, {"token": token, "user": user_info}, None
 
-def verify_token(token):
-    if not token or token not in ACTIVE_SESSIONS:
-        return False, None
-    session_data = ACTIVE_SESSIONS[token]
-    if time.time() > session_data["expires_at"]:
-        del ACTIVE_SESSIONS[token]
-        return False, None
-    return True, session_data
 
-def invalidate_token(token):
-    if token in ACTIVE_SESSIONS:
-        del ACTIVE_SESSIONS[token]
-        return True
-    return False
-
-def admin_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        auth_header = request.headers.get('Authorization', '')
-        token = None
-        if auth_header.startswith('Bearer '):
-            token = auth_header.split('Bearer ')[1].strip()
-        elif 'X-Admin-Token' in request.headers:
-            token = request.headers['X-Admin-Token']
-            
-        if not token:
-            return jsonify({"error": "Unauthorized", "message": "Authentication token required"}), 401
-            
-        valid, session_data = verify_token(token)
-        if not valid:
-            return jsonify({"error": "Unauthorized", "message": "Invalid or expired token"}), 401
-            
-        request.admin_user = session_data
-        return f(*args, **kwargs)
-    return decorated_function
+def update_admin_profile(current_password: str, new_username: Optional[str] = None, new_password: Optional[str] = None) -> Tuple[bool, Optional[str]]:
+    """Change admin username or password after verifying current password."""
+    admin_data = get_single("admin")
+    if not check_password_hash(admin_data.get("password_hash", ""), current_password):
+        return False, "Current password is incorrect"
+        
+    updates = {}
+    if new_username and new_username.strip():
+        updates["username"] = new_username.strip()
+    if new_password and len(new_password) >= 6:
+        updates["password_hash"] = generate_password_hash(new_password, method="scrypt")
+        
+    if updates:
+        update_single("admin", updates)
+        return True, "Profile updated successfully"
+    return False, "No valid updates provided"

@@ -74,7 +74,7 @@ export const AdminBooksPage = () => {
       setIsModalOpen(false);
       fetchBooks();
     } catch (err) {
-      setAlert({ type: 'danger', text: 'Failed to save book' });
+      setAlert({ type: 'danger', text: err.message || 'Failed to save book' });
     }
   };
 
@@ -85,7 +85,7 @@ export const AdminBooksPage = () => {
       setAlert({ type: 'success', text: 'Book removed' });
       fetchBooks();
     } catch (err) {
-      setAlert({ type: 'danger', text: 'Failed to delete book' });
+      setAlert({ type: 'danger', text: err.message || 'Failed to delete book' });
     }
   };
 
