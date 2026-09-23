@@ -136,7 +136,14 @@ export const InvitationPage = () => {
       ))}
 
       {/* Language Switcher in Corner */}
-      <div className="position-absolute top-0 end-0 p-4" style={{ zIndex: 30 }}>
+      <div 
+        className="position-absolute top-0 end-0 p-3 p-sm-4" 
+        style={{ 
+          zIndex: 30, 
+          paddingTop: 'max(16px, env(safe-area-inset-top, 0px))', 
+          paddingRight: 'max(16px, env(safe-area-inset-right, 0px))' 
+        }}
+      >
         <div className="lang-switcher bg-white bg-opacity-75 shadow-sm">
           <button
             onClick={() => toggleLanguage('en')}
