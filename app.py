@@ -11,10 +11,17 @@ if str(root_dir) not in sys.path:
 
 from backend.app import create_app
 
-# Flask instance for Vercel framework detection and production WSGI
+# Top-level Flask application instance for Vercel and production WSGI
 app = Flask(__name__)
 env_name = os.getenv("FLASK_ENV", "production" if (os.getenv("VERCEL") or os.getenv("RENDER") or os.getenv("RAILWAY_STATIC_URL")) else "development")
 app = create_app(env_name)
+
+
+@app.route("/api/health", methods=["GET"])
+def health_check():
+    """Health check endpoint for Vercel and monitoring."""
+    return {"status": "healthy", "service": "suchetha-portfolio"}
+
 
 if __name__ == "__main__":
     host = os.getenv("HOST", "0.0.0.0")
