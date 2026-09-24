@@ -3,11 +3,16 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Load environment variables from backend/.env if it exists
+# Load environment variables from root/.env or backend/.env if existing
 backend_dir = Path(__file__).resolve().parent.parent
-env_path = backend_dir / ".env"
-if env_path.exists():
-    load_dotenv(dotenv_path=env_path)
+root_dir = backend_dir.parent
+
+root_env = root_dir / ".env"
+backend_env = backend_dir / ".env"
+if root_env.exists():
+    load_dotenv(dotenv_path=root_env)
+elif backend_env.exists():
+    load_dotenv(dotenv_path=backend_env)
 else:
     load_dotenv()
 
@@ -15,8 +20,10 @@ else:
 class Config:
     """Base configuration class."""
     BASE_DIR = backend_dir
-    DATA_FOLDER = backend_dir / "data"
-    UPLOAD_FOLDER = backend_dir / "uploads"
+    ROOT_DIR = root_dir
+    DATA_FOLDER = Path(os.getenv("DATA_FOLDER", str(backend_dir / "data")))
+    UPLOAD_FOLDER = Path(os.getenv("UPLOAD_FOLDER", str(backend_dir / "uploads")))
+    FRONTEND_DIST_FOLDER = Path(os.getenv("FRONTEND_DIST_FOLDER", str(root_dir / "frontend" / "dist")))
     
     # Secrets
     SECRET_KEY = os.getenv("SECRET_KEY", "default-insecure-flask-secret-key-change-in-prod")

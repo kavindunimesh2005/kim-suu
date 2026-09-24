@@ -1,0 +1,15 @@
+{
+  "name": "suchetha-kapuarachchi-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Suchetha Kapuarachchi - Author Portfolio & Admin Dashboard (Unified Deployable Application)",
+  "scripts": {
+    "dev": "npm run dev --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "lint": "npm run lint --prefix frontend",
+    "preview": "npm run preview --prefix frontend",
+    "start": "python backend/app.py",
+    "start:root": "python app.py",
+    "install:all": "npm install --prefix frontend && pip install -r requirements.txt"
+  }
+}

@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Build output
+frontend/dist/
+dist/
+dist-ssr/
+*.egg-info/
+.eggs/
+
+# Vercel
+.vercel/
+
+# Temporary / Scratch files
+*.tmp
+*.log
+logs/
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea/

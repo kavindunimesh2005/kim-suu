@@ -1,11 +1,15 @@
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-const BACKEND_BASE = API_URL.replace(/\/api\/?$/, '');
-const API_BASE = '/api';
+export const API_BASE = '/api';
+export const API_URL = import.meta.env.VITE_API_URL || API_BASE;
+// If an absolute URL was explicitly provided (e.g. standalone backend), extract backend origin; otherwise use relative path
+const BACKEND_BASE = (import.meta.env.VITE_API_URL && /^https?:\/\//i.test(import.meta.env.VITE_API_URL))
+  ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '')
+  : '';
 
 /**
  * Resolve absolute or relative media URLs.
  * Handles full URLs (http/https), public frontend assets (/assets/...),
  * and uploaded backend files (/uploads/...).
+ * Returns clean relative paths for unified same-domain deployment.
  */
 export function getMediaUrl(path) {
   if (!path) return '';
@@ -18,7 +22,7 @@ export function getMediaUrl(path) {
   }
   // Uploaded media from Flask backend
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
-  return `${BACKEND_BASE}${cleanPath}`;
+  return BACKEND_BASE ? `${BACKEND_BASE}${cleanPath}` : cleanPath;
 }
 
 const getHeaders = (token = null, isFormData = false) => {

@@ -1,6 +1,8 @@
 """Flask application factory."""
+import mimetypes
 import os
-from flask import Flask, jsonify, send_from_directory
+from pathlib import Path
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from backend.app.config import config_by_name
 from backend.app.routes import (
@@ -16,6 +18,10 @@ from backend.app.routes import (
     settings_bp,
     upload_bp
 )
+
+# Ensure proper MIME types for JavaScript and CSS on Windows & Linux
+mimetypes.add_type("application/javascript", ".js")
+mimetypes.add_type("text/css", ".css")
 
 
 def create_app(config_name: str = None) -> Flask:
@@ -33,14 +39,16 @@ def create_app(config_name: str = None) -> Flask:
     app.config["UPLOAD_FOLDER"].mkdir(parents=True, exist_ok=True)
     
     # Configure CORS
-    CORS(
-        app,
-        resources={
-            r"/api/*": {"origins": app.config["CORS_ORIGINS"]},
-            r"/uploads/*": {"origins": app.config["CORS_ORIGINS"]}
-        },
-        supports_credentials=True
-    )
+    cors_origins = app.config.get("CORS_ORIGINS", [])
+    if cors_origins:
+        CORS(
+            app,
+            resources={
+                r"/api/*": {"origins": cors_origins},
+                r"/uploads/*": {"origins": cors_origins}
+            },
+            supports_credentials=True
+        )
     
     # Register blueprints under /api prefix
     app.register_blueprint(health_bp, url_prefix="/api")
@@ -58,8 +66,56 @@ def create_app(config_name: str = None) -> Flask:
     # Serve uploaded static media files
     @app.route("/uploads/<path:filename>", methods=["GET"])
     def serve_uploaded_file(filename: str):
-        return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
-        
+        upload_folder = Path(app.config["UPLOAD_FOLDER"])
+        target_file = upload_folder / filename
+        if not target_file.is_file():
+            return jsonify({
+                "success": False,
+                "error": "Upload not found",
+                "message": f"File '{filename}' does not exist in uploads."
+            }), 404
+        return send_from_directory(upload_folder, filename)
+
+    # Serve compiled React SPA and handle client-side routing fallback
+    dist_folder = Path(app.config["FRONTEND_DIST_FOLDER"])
+
+    @app.route("/", defaults={"path": ""}, methods=["GET", "HEAD"])
+    @app.route("/<path:path>", methods=["GET", "HEAD"])
+    def serve_react(path: str):
+        # 1. API routes safeguard: never intercept API routes with HTML fallback
+        if path == "api" or path.startswith("api/"):
+            return jsonify({
+                "success": False,
+                "error": "Resource not found",
+                "message": f"API endpoint '/{path}' does not exist."
+            }), 404
+
+        # 2. Upload routes safeguard: never intercept uploads with HTML fallback
+        if path == "uploads" or path.startswith("uploads/"):
+            return jsonify({
+                "success": False,
+                "error": "Upload not found",
+                "message": f"Upload resource '/{path}' does not exist."
+            }), 404
+
+        # 3. Check if exact file exists in frontend dist (e.g. assets/..., favicon.ico, images)
+        if path:
+            candidate_file = dist_folder / path
+            if candidate_file.is_file():
+                return send_from_directory(dist_folder, path)
+
+        # 4. Fallback to index.html for React Router client-side routes
+        index_file = dist_folder / "index.html"
+        if index_file.is_file():
+            return send_from_directory(dist_folder, "index.html")
+
+        # 5. Informative notice if frontend is not built yet
+        return jsonify({
+            "success": False,
+            "error": "Frontend build not found",
+            "message": "The React frontend build was not found. Please run 'npm run build' to generate frontend/dist."
+        }), 404
+
     # Global error handlers for consistent JSON API responses
     @app.errorhandler(400)
     def bad_request(error):
@@ -71,6 +127,26 @@ def create_app(config_name: str = None) -> Flask:
 
     @app.errorhandler(404)
     def not_found(error):
+        if request.path.startswith("/api/"):
+            return jsonify({
+                "success": False,
+                "error": "Resource not found",
+                "message": f"Endpoint '{request.path}' was not found on this server."
+            }), 404
+
+        if request.path.startswith("/uploads/"):
+            return jsonify({
+                "success": False,
+                "error": "Upload not found",
+                "message": f"Upload resource '{request.path}' was not found."
+            }), 404
+
+        if request.method in ("GET", "HEAD"):
+            dist_dir = Path(app.config.get("FRONTEND_DIST_FOLDER", ""))
+            index_file = dist_dir / "index.html"
+            if index_file.is_file():
+                return send_from_directory(dist_dir, "index.html")
+
         return jsonify({
             "success": False,
             "error": "Resource not found",
