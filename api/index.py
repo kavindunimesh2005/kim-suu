@@ -1,6 +1,7 @@
 """Vercel serverless function entrypoint."""
 import os
 import sys
+import traceback
 from pathlib import Path
 
 # Add project root to sys.path so backend can be imported
@@ -10,32 +11,49 @@ if str(root_dir) not in sys.path:
 
 os.environ["VERCEL"] = "1"
 
-from backend.app import create_app
+try:
+    from backend.app import create_app
 
-# Create production Flask instance
-app = create_app("production")
+    # Create production Flask instance
+    app = create_app("production")
 
+    class VercelPathMiddleware:
+        """WSGI middleware to handle Vercel internal rewrites gracefully."""
+        def __init__(self, wsgi_app):
+            self.wsgi_app = wsgi_app
 
-class VercelPathMiddleware:
-    """WSGI middleware to handle Vercel internal rewrites gracefully."""
-    def __init__(self, wsgi_app):
-        self.wsgi_app = wsgi_app
+        def __call__(self, environ, start_response):
+            matched_path = (
+                environ.get("HTTP_X_MATCHED_PATH")
+                or environ.get("RAW_URI")
+                or environ.get("REQUEST_URI")
+            )
+            if matched_path and (matched_path.startswith("/api") or matched_path.startswith("/uploads")):
+                path = matched_path.split("?")[0]
+                environ["PATH_INFO"] = path
+            return self.wsgi_app(environ, start_response)
 
-    def __call__(self, environ, start_response):
-        matched_path = (
-            environ.get("HTTP_X_MATCHED_PATH")
-            or environ.get("RAW_URI")
-            or environ.get("REQUEST_URI")
-        )
-        if matched_path and (matched_path.startswith("/api") or matched_path.startswith("/uploads")):
-            path = matched_path.split("?")[0]
-            environ["PATH_INFO"] = path
-        return self.wsgi_app(environ, start_response)
+    app.wsgi_app = VercelPathMiddleware(app.wsgi_app)
 
+    @app.route("/api/health", methods=["GET"])
+    def health_check():
+        return {"status": "healthy", "service": "suchetha-portfolio"}
 
-app.wsgi_app = VercelPathMiddleware(app.wsgi_app)
+except Exception as err:
+    from flask import Flask, jsonify
+    err_msg = str(err)
+    err_tb = traceback.format_exc()
+    app = Flask(__name__)
 
-
-@app.route("/api/health", methods=["GET"])
-def health_check():
-    return {"status": "healthy", "service": "suchetha-portfolio"}
+    @app.route("/", defaults={"path": ""}, methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
+    @app.route("/<path:path>", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
+    def error_handler(path):
+        return jsonify({
+            "success": False,
+            "error": "Backend initialization error",
+            "message": err_msg,
+            "traceback": err_tb,
+            "root_dir": str(root_dir),
+            "backend_exists": (root_dir / "backend").exists(),
+            "sys_path": sys.path
+        }), 500
