@@ -35,8 +35,37 @@ def create_app(config_name: str = None) -> Flask:
     app.config.from_object(config_class)
     
     # Ensure data and upload directories exist
-    app.config["DATA_FOLDER"].mkdir(parents=True, exist_ok=True)
-    app.config["UPLOAD_FOLDER"].mkdir(parents=True, exist_ok=True)
+    try:
+        app.config["DATA_FOLDER"].mkdir(parents=True, exist_ok=True)
+        app.config["UPLOAD_FOLDER"].mkdir(parents=True, exist_ok=True)
+    except OSError:
+        pass
+
+    # If running on Vercel serverless, seed /tmp/data and /tmp/uploads from repository
+    if os.getenv("VERCEL"):
+        import shutil
+        source_data = Path(__file__).resolve().parent.parent / "data"
+        if source_data.exists():
+            for item in source_data.glob("*.json"):
+                dest = app.config["DATA_FOLDER"] / item.name
+                if not dest.exists():
+                    try:
+                        shutil.copy2(item, dest)
+                    except OSError:
+                        pass
+        source_uploads = Path(__file__).resolve().parent.parent / "uploads"
+        if source_uploads.exists():
+            for cat_dir in source_uploads.iterdir():
+                if cat_dir.is_dir():
+                    dest_cat = app.config["UPLOAD_FOLDER"] / cat_dir.name
+                    try:
+                        dest_cat.mkdir(parents=True, exist_ok=True)
+                        for img in cat_dir.glob("*"):
+                            dest_img = dest_cat / img.name
+                            if not dest_img.exists():
+                                shutil.copy2(img, dest_img)
+                    except OSError:
+                        pass
     
     # Configure CORS
     cors_origins = app.config.get("CORS_ORIGINS", [])

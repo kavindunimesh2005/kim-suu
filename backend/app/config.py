@@ -17,13 +17,21 @@ else:
     load_dotenv()
 
 
+is_vercel = bool(os.getenv("VERCEL"))
+
+
 class Config:
     """Base configuration class."""
     BASE_DIR = backend_dir
     ROOT_DIR = root_dir
-    DATA_FOLDER = Path(os.getenv("DATA_FOLDER", str(backend_dir / "data")))
-    UPLOAD_FOLDER = Path(os.getenv("UPLOAD_FOLDER", str(backend_dir / "uploads")))
-    FRONTEND_DIST_FOLDER = Path(os.getenv("FRONTEND_DIST_FOLDER", str(root_dir / "frontend" / "dist")))
+    if is_vercel:
+        DATA_FOLDER = Path("/tmp/data")
+        UPLOAD_FOLDER = Path("/tmp/uploads")
+        FRONTEND_DIST_FOLDER = root_dir / "frontend" / "dist"
+    else:
+        DATA_FOLDER = Path(os.getenv("DATA_FOLDER", str(backend_dir / "data")))
+        UPLOAD_FOLDER = Path(os.getenv("UPLOAD_FOLDER", str(backend_dir / "uploads")))
+        FRONTEND_DIST_FOLDER = Path(os.getenv("FRONTEND_DIST_FOLDER", str(root_dir / "frontend" / "dist")))
     
     # Secrets
     SECRET_KEY = os.getenv("SECRET_KEY", "default-insecure-flask-secret-key-change-in-prod")
