@@ -6,13 +6,26 @@ import uuid
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'data')
 
 def _get_file_path(collection_name):
+    # If standard DATA_DIR is not writable, fallback to /tmp/data
+    if not os.path.exists(DATA_DIR):
+        try:
+            os.makedirs(DATA_DIR, exist_ok=True)
+        except OSError:
+            tmp_dir = os.path.join(tempfile.gettempdir(), 'kim_suu_data')
+            os.makedirs(tmp_dir, exist_ok=True)
+            return os.path.join(tmp_dir, f"{collection_name}.json")
     return os.path.join(DATA_DIR, f"{collection_name}.json")
 
 def load_data(collection_name, default=None):
     """Safely read JSON data from file."""
     path = _get_file_path(collection_name)
     if not os.path.exists(path):
-        return default if default is not None else []
+        # Also check initial DATA_DIR if fallback was used
+        alt_path = os.path.join(DATA_DIR, f"{collection_name}.json")
+        if os.path.exists(alt_path):
+            path = alt_path
+        else:
+            return default if default is not None else []
     try:
         with open(path, 'r', encoding='utf-8') as f:
             return json.load(f)
@@ -22,27 +35,26 @@ def load_data(collection_name, default=None):
 
 def save_data(collection_name, data):
     """Safely write JSON data using atomic file replacement."""
-    os.makedirs(DATA_DIR, exist_ok=True)
     target_path = _get_file_path(collection_name)
-    
-    # Write to a temporary file first in the same directory, then rename atomically
     dir_name = os.path.dirname(target_path)
-    with tempfile.NamedTemporaryFile('w', dir=dir_name, delete=False, encoding='utf-8') as tf:
-        json.dump(data, tf, ensure_ascii=False, indent=2)
-        temp_name = tf.name
-        
     try:
-        # Atomic replace
+        os.makedirs(dir_name, exist_ok=True)
+        with tempfile.NamedTemporaryFile('w', dir=dir_name, delete=False, encoding='utf-8') as tf:
+            json.dump(data, tf, ensure_ascii=False, indent=2)
+            temp_name = tf.name
         os.replace(temp_name, target_path)
         return True
     except Exception as e:
         print(f"Error saving {collection_name}: {e}")
-        if os.path.exists(temp_name):
-            try:
-                os.remove(temp_name)
-            except Exception:
-                pass
-        return False
+        # Try direct write to /tmp as last resort
+        try:
+            tmp_target = os.path.join(tempfile.gettempdir(), f"{collection_name}.json")
+            with open(tmp_target, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            return True
+        except Exception as inner_e:
+            print(f"Fallback save failed: {inner_e}")
+            return False
 
 # CRUD Helpers
 def get_all(collection_name):

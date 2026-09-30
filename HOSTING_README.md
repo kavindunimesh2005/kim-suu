@@ -47,9 +47,16 @@ kim-suu-/
 
 ---
 
-## 🌐 Cloud Host කරන්නේ කෙසේද? (Deployment)
+### 1. Vercel.com (Serverless Deployment):
+1. [vercel.com](https://vercel.com) වෙත ගොස් ඔබේ GitHub ගිණුමෙන් Login වන්න.
+2. **Add New... -> Project** තෝරන්න.
+3. **`kim-suu`** repository එක **Import** කරන්න.
+4. Framework Preset එක **Other** හෝ **Vite** තබන්න (Root Directory එක `.` ලෙස තබන්න).
+5. **Deploy** button එක ඔබන්න.
+*(vercel.json සහ api/index.py මඟින් Frontend සහ Python Backend දෙකම ස්වයංක්‍රීයව Deploy වේ).*
 
-### Render.com / Railway:
+### 2. Render.com / Railway (Full Server Deployment):
 - **Build Command:** `pip install -r requirements.txt`
 - **Start Command:** `gunicorn server:app` (හෝ `python server.py`)
 - **Root Directory:** `.`
+
