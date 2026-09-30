@@ -1,0 +1,40 @@
+{
+  "name": "Suchetha Kapuarachchi",
+  "name_si": "සුචේතා කපුආරච්චි",
+  "pen_name": "Kim Suu Ah",
+  "title_si": "කතුවරිය • ලේඛිකාව • කතන්දරකාරිය",
+  "title_en": "Author • Writer • Storyteller",
+  "portrait_image": "/assets/author-suchetha.jpg",
+  "signature_si": "සුචේතා කපුආරච්චි",
+  "bio_summary_si": "මිනිස් ආත්මයේ නොකියූ හැඟීම්, සොබාදහමේ ගුප්ත සෞන්දර්යය සහ ශ්‍රී ලාංකීය සංස්කෘතික ගැඹුර අකුරු බවට පෙරළන ප්‍රකට ලේඛිකාවකි.",
+  "bio_summary_en": "A renowned Sri Lankan author who transforms the unsaid whispers of the human heart, the mystical poetry of nature, and rich cultural heritage into transcendent literary worlds.",
+  "full_bio_si": "සුචේතා කපුආරච්චි (කලාලෝකයේ 'Kim Suu Ah' නමින් ද හඳුන්වන) නූතන ශ්‍රී ලාංකීය සාහිත්‍ය ක්ෂේත්‍රයේ නව කඩඉමක් සනිටුහන් කළ ලේඛිකාවකි. ඇයගේ පළමු ප්‍රකට කෘතිය වන 'හුළු අත්ත' සොබාදහම සහ සන්සුන් ආදරය එකට මුසු වූ අපූර්ව ප්‍රබන්ධයක් වන අතර, දෙවන කෘතිය වන 'අරුංගල්' පාරම්පරික උරුමය, කැපවීම සහ උදාර ප්‍රේමය විදහාපාන කාව්‍යමය නවකතාවකි. ඇයගේ ලේඛන ශෛලිය සිනමාත්මක දෘශ්‍යමානත්වයකින් සහ ගැඹුරු චිත්තවේගීය ප්‍රකාශනයකින් අනූනය. සාහිත්‍යය යනු හුදු විනෝදාස්වාදය ඉක්මවා මනුෂ්‍යත්වය සුවපත් කරන මාවතක් බව ඇයගේ විශ්වාසයයි.",
+  "full_bio_en": "Suchetha Kapuarachchi (also celebrated in the literary sphere under the pen name 'Kim Suu Ah') represents a luminous voice in modern Sri Lankan literature. Her celebrated novels 'Hulu Aththa' and 'Arungal' have captivated thousands with their lyrical sensitivity, natural romanticism, and profound exploration of cultural identity and emotional sacrifice. For Suchetha, writing is not merely the craft of storytelling, but a sanctuary of empathy and an art that heals the human heart.",
+  "philosophy_si": "සෑම පොතක්ම කියවන්නාගේ හදවතට විවර වන නිහඬ කවුළුවකි. එහිදී ඔබ දකින්නේ මගේ වචන පමණක් නොව, ඔබේම ආත්මයේ ගැඹුරුම සේයාවන්ය.",
+  "philosophy_en": "Every book is a quiet window opened to the reader's heart. Looking through it, you discover not just my words, but the deepest reflections of your own soul.",
+  "achievements": [
+    {
+      "year": "2024",
+      "title_si": "වසරේ විශිෂ්ටතම පාඨක ප්‍රසාදය දිනූ ප්‍රබන්ධය - හුළු අත්ත",
+      "title_en": "Readers' Choice Bestseller of the Year - Hulu Aththa"
+    },
+    {
+      "year": "2025",
+      "title_si": "විචාරක සම්මාන නිර්දේශය - අරුංගල්",
+      "title_en": "Literary Critics Award Nomination - Arungal"
+    },
+    {
+      "year": "2025",
+      "title_si": "යොවුන් සාහිත්‍ය නිර්මාණාත්මක දායකත්ව සම්මානය",
+      "title_en": "Creative Contribution to Youth Literature Award"
+    }
+  ],
+  "contact": {
+    "email": "contact@suchethakapuarachchi.com",
+    "phone": "+94 77 123 4567",
+    "location": "Colombo, Sri Lanka",
+    "instagram": "https://instagram.com/suchetha_kapu",
+    "facebook": "https://facebook.com/suchetha.author",
+    "goodreads": "https://goodreads.com/author/suchetha_kapuarachchi"
+  }
+}
