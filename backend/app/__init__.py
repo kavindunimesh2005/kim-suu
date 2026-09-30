@@ -4,7 +4,6 @@ import sys
 from flask import Flask, jsonify, request, send_from_directory
 from app.routes.books_routes import books_bp
 from app.routes.blogs_routes import blogs_bp
-from app.routes.stories_routes import stories_bp
 from app.routes.gallery_routes import gallery_bp
 from app.routes.author_routes import author_bp
 from app.routes.contact_routes import contact_bp
@@ -45,7 +44,6 @@ def create_app():
     # Register Blueprints
     app.register_blueprint(books_bp, url_prefix='/api/books')
     app.register_blueprint(blogs_bp, url_prefix='/api/blogs')
-    app.register_blueprint(stories_bp, url_prefix='/api/stories')
     app.register_blueprint(gallery_bp, url_prefix='/api/gallery')
     app.register_blueprint(author_bp, url_prefix='/api/author')
     app.register_blueprint(contact_bp, url_prefix='/api/contact')

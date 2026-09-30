@@ -15,7 +15,6 @@ export const Navbar = () => {
     { to: '/home', labelKey: 'nav.home' },
     { to: '/about', labelKey: 'nav.about' },
     { to: '/books', labelKey: 'nav.books' },
-    { to: '/stories', labelKey: 'nav.stories' },
     { to: '/blog', labelKey: 'nav.blog' },
     { to: '/gallery', labelKey: 'nav.gallery' },
     { to: '/contact', labelKey: 'nav.contact' }

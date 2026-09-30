@@ -15,7 +15,6 @@ import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { BooksPage } from './pages/BooksPage';
 import { BookDetailPage } from './pages/BookDetailPage';
-import { StoriesPage } from './pages/StoriesPage';
 import { BlogPage } from './pages/BlogPage';
 import { BlogDetailPage } from './pages/BlogDetailPage';
 import { GalleryPage } from './pages/GalleryPage';
@@ -28,7 +27,6 @@ import { AdminLoginPage } from './pages/admin/AdminLoginPage';
 import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
 import { AdminBooksPage } from './pages/admin/AdminBooksPage';
 import { AdminBlogsPage } from './pages/admin/AdminBlogsPage';
-import { AdminStoriesPage } from './pages/admin/AdminStoriesPage';
 import { AdminGalleryPage } from './pages/admin/AdminGalleryPage';
 import { AdminAuthorPage } from './pages/admin/AdminAuthorPage';
 import { AdminMessagesPage } from './pages/admin/AdminMessagesPage';
@@ -77,7 +75,6 @@ function App() {
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/books" element={<BooksPage />} />
                 <Route path="/books/:slug" element={<BookDetailPage />} />
-                <Route path="/stories" element={<StoriesPage />} />
                 <Route path="/blog" element={<BlogPage />} />
                 <Route path="/blog/:slug" element={<BlogDetailPage />} />
                 <Route path="/gallery" element={<GalleryPage />} />
@@ -91,7 +88,6 @@ function App() {
                 <Route path="dashboard" element={<AdminDashboardPage />} />
                 <Route path="books" element={<AdminBooksPage />} />
                 <Route path="blogs" element={<AdminBlogsPage />} />
-                <Route path="stories" element={<AdminStoriesPage />} />
                 <Route path="gallery" element={<AdminGalleryPage />} />
                 <Route path="author" element={<AdminAuthorPage />} />
                 <Route path="messages" element={<AdminMessagesPage />} />

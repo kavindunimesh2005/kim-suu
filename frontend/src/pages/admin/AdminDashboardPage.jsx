@@ -51,7 +51,7 @@ export const AdminDashboardPage = () => {
       <div className="row g-3 mb-4">
         
         {/* Books */}
-        <div className="col-sm-6 col-xl-3">
+        <div className="col-sm-6 col-lg-4">
           <div className="admin-stat-card d-flex align-items-center justify-content-between">
             <div>
               <span className="text-muted small fw-bold d-block">Published Books</span>
@@ -65,7 +65,7 @@ export const AdminDashboardPage = () => {
         </div>
 
         {/* Blogs */}
-        <div className="col-sm-6 col-xl-3">
+        <div className="col-sm-6 col-lg-4">
           <div className="admin-stat-card d-flex align-items-center justify-content-between">
             <div>
               <span className="text-muted small fw-bold d-block">Journal Articles</span>
@@ -78,22 +78,8 @@ export const AdminDashboardPage = () => {
           </div>
         </div>
 
-        {/* Stories */}
-        <div className="col-sm-6 col-xl-3">
-          <div className="admin-stat-card d-flex align-items-center justify-content-between">
-            <div>
-              <span className="text-muted small fw-bold d-block">Stories & Poetry</span>
-              <span className="fs-2 fw-bold text-dark">{stats.total_stories}</span>
-              <span className="d-block small text-muted">Excerpts & Poems</span>
-            </div>
-            <div className="p-3 rounded-circle bg-info bg-opacity-10 text-info">
-              <Feather size={24} />
-            </div>
-          </div>
-        </div>
-
         {/* Messages */}
-        <div className="col-sm-6 col-xl-3">
+        <div className="col-sm-6 col-lg-4">
           <div className="admin-stat-card d-flex align-items-center justify-content-between">
             <div>
               <span className="text-muted small fw-bold d-block">Reader Inquiries</span>

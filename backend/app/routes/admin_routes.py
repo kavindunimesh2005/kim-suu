@@ -56,7 +56,6 @@ def admin_logout():
 def admin_dashboard():
     books = get_all('books')
     blogs = get_all('blogs')
-    stories = get_all('stories')
     gallery = get_all('gallery')
     messages = get_all('messages')
     
@@ -67,7 +66,6 @@ def admin_dashboard():
     published_blogs = sum(1 for b in blogs if b.get('status') == 'published')
     draft_blogs = total_blogs - published_blogs
     
-    total_stories = len(stories)
     total_gallery = len(gallery)
     
     total_messages = len(messages)
@@ -84,7 +82,6 @@ def admin_dashboard():
             "total_blogs": total_blogs,
             "published_blogs": published_blogs,
             "draft_blogs": draft_blogs,
-            "total_stories": total_stories,
             "total_gallery": total_gallery,
             "total_messages": total_messages,
             "new_messages": new_messages

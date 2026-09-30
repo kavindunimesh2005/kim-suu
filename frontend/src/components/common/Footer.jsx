@@ -32,7 +32,6 @@ export const Footer = () => {
               <Link to="/home" className="text-decoration-none text-muted small">{t('nav.home')}</Link>
               <Link to="/about" className="text-decoration-none text-muted small">{t('nav.about')}</Link>
               <Link to="/books" className="text-decoration-none text-muted small">{t('nav.books')}</Link>
-              <Link to="/stories" className="text-decoration-none text-muted small">{t('nav.stories')}</Link>
               <Link to="/blog" className="text-decoration-none text-muted small">{t('nav.blog')}</Link>
               <Link to="/gallery" className="text-decoration-none text-muted small">{t('nav.gallery')}</Link>
               <Link to="/contact" className="text-decoration-none text-muted small">{t('nav.contact')}</Link>

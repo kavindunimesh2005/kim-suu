@@ -35,11 +35,6 @@ export const api = {
     const res = await fetch(`${API_BASE}/blogs/${id}`);
     return res.json();
   },
-  getStories: async (category = '') => {
-    const url = category ? `${API_BASE}/stories?category=${category}` : `${API_BASE}/stories`;
-    const res = await fetch(url);
-    return res.json();
-  },
   getGallery: async (category = '') => {
     const url = category ? `${API_BASE}/gallery?category=${category}` : `${API_BASE}/gallery`;
     const res = await fetch(url);
@@ -113,30 +108,6 @@ export const api = {
     },
     deleteBlog: async (id) => {
       const res = await fetch(`${API_BASE}/blogs/${id}`, {
-        method: 'DELETE',
-        headers: getHeaders()
-      });
-      return res.json();
-    },
-    // Stories
-    createStory: async (data) => {
-      const res = await fetch(`${API_BASE}/stories`, {
-        method: 'POST',
-        headers: getHeaders(),
-        body: JSON.stringify(data)
-      });
-      return res.json();
-    },
-    updateStory: async (id, data) => {
-      const res = await fetch(`${API_BASE}/stories/${id}`, {
-        method: 'PUT',
-        headers: getHeaders(),
-        body: JSON.stringify(data)
-      });
-      return res.json();
-    },
-    deleteStory: async (id) => {
-      const res = await fetch(`${API_BASE}/stories/${id}`, {
         method: 'DELETE',
         headers: getHeaders()
       });

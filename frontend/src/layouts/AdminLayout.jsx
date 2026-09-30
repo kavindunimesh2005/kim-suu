@@ -34,7 +34,6 @@ export const AdminLayout = () => {
     { to: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
     { to: '/admin/books', icon: BookOpen, label: 'Books Management' },
     { to: '/admin/blogs', icon: FileText, label: 'Blogs Management' },
-    { to: '/admin/stories', icon: Feather, label: 'Stories & Poems' },
     { to: '/admin/gallery', icon: Image, label: 'Gallery Management' },
     { to: '/admin/author', icon: User, label: 'Author Profile' },
     { to: '/admin/messages', icon: Mail, label: 'Messages Inbox' },

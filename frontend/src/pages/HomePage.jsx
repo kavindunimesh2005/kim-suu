@@ -11,20 +11,17 @@ export const HomePage = () => {
   const { currentTheme, setTheme } = useTheme();
 
   const [books, setBooks] = useState([]);
-  const [stories, setStories] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [booksData, storiesData, blogsData] = await Promise.all([
+        const [booksData, blogsData] = await Promise.all([
           api.getBooks(),
-          api.getStories(),
           api.getBlogs()
         ]);
         setBooks(booksData || []);
-        setStories((storiesData || []).slice(0, 3));
         setBlogs((blogsData || []).slice(0, 2));
       } catch (err) {
         console.error("Error fetching homepage data:", err);
@@ -278,62 +275,9 @@ export const HomePage = () => {
       </section>
 
       {/* ============================================================== */}
-      {/* 4. STORIES / POEMS PREVIEW                                     */}
+      {/* 4. LITERARY JOURNAL PREVIEWS                                   */}
       {/* ============================================================== */}
-      <section className="py-5" style={{ background: 'var(--color-bg-alt)' }}>
-        <div className="container">
-          
-          <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
-            <div>
-              <h3 className="font-editorial fw-bold fs-2 mb-1" style={{ color: 'var(--color-primary)' }}>
-                {t('stories.title')}
-              </h3>
-              <p className="font-sinhala-title text-muted mb-0 small">
-                {t('stories.subtitle')}
-              </p>
-            </div>
-            <Link to="/stories" className="btn btn-literary-outline btn-sm mt-3 mt-md-0">
-              <span>{lang === 'si' ? "සියලු නිර්මාණ කියවන්න" : "View All Stories"}</span>
-              <ArrowRight size={15} />
-            </Link>
-          </div>
-
-          <div className="row g-4">
-            {stories.map((story) => (
-              <div key={story.id} className="col-md-4">
-                <div className="card-literary h-100 p-4 d-flex flex-column justify-content-between">
-                  <div>
-                    <span 
-                      className="badge px-3 py-1 rounded-pill small mb-3"
-                      style={{ background: 'rgba(var(--color-primary-rgb), 0.08)', color: 'var(--color-primary)' }}
-                    >
-                      {story.category}
-                    </span>
-                    <h4 className="font-sinhala-title fs-5 fw-bold mb-2" style={{ color: 'var(--color-primary)' }}>
-                      {lang === 'si' ? story.title_si : story.title_en}
-                    </h4>
-                    <p className="font-sinhala-title text-muted small fst-italic" style={{ whiteSpace: 'pre-line', lineHeight: '1.7' }}>
-                      {lang === 'si' ? story.content_si.slice(0, 140) + '...' : story.content_en.slice(0, 140) + '...'}
-                    </p>
-                  </div>
-                  <div className="pt-3 border-top mt-3 d-flex justify-content-between align-items-center">
-                    <span className="small text-muted font-monospace">{story.date}</span>
-                    <Link to="/stories" className="text-decoration-none small fw-bold" style={{ color: 'var(--color-primary)' }}>
-                      Read More &rarr;
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ============================================================== */}
-      {/* 5. LITERARY JOURNAL PREVIEWS                                   */}
-      {/* ============================================================== */}
-      <section className="py-5 py-lg-6">
+      <section className="py-5 py-lg-6" style={{ background: 'var(--color-bg-alt)' }}>
         <div className="container">
           
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">

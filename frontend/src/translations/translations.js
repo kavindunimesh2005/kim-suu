@@ -4,7 +4,6 @@ export const translations = {
       home: "මුල් පිටුව",
       about: "කතුවරිය ගැන",
       books: "කෘති",
-      stories: "නිර්මාණ",
       blog: "සටහන්",
       gallery: "ඡායාරූප",
       contact: "සම්බන්ධ වන්න",
@@ -64,13 +63,6 @@ export const translations = {
       achievements_title: "ඇගයීම් සහ සම්මාන",
       connect_title: "කතුවරිය හා සම්බන්ධ වන්න"
     },
-    stories: {
-      title: "කෙටි නිර්මාණ සහ කවි",
-      subtitle: "හදවතේ නැඟුණු කාව්‍යමය අංශුමාත්‍ර",
-      all: "සියල්ල",
-      read_modal_title: "නිර්මාණය කියවන්න",
-      close: "වසන්න"
-    },
     blog: {
       title: "සාහිත්‍යමය සටහන් සහ පුවත්",
       subtitle: "අකුරු අතර විවේකයේ ලියැවුණු සිතුවිලි",
@@ -110,7 +102,6 @@ export const translations = {
       home: "Home",
       about: "About",
       books: "Books",
-      stories: "Stories",
       blog: "Blog",
       gallery: "Gallery",
       contact: "Contact",
@@ -169,13 +160,6 @@ export const translations = {
       philosophy_title: "Writing Philosophy",
       achievements_title: "Honors & Achievements",
       connect_title: "Connect with the Author"
-    },
-    stories: {
-      title: "Stories & Poetry",
-      subtitle: "Poetic fragments, vignettes, and reflections from her notebook",
-      all: "All Writings",
-      read_modal_title: "Read Piece",
-      close: "Close"
     },
     blog: {
       title: "Literary Journal & Essays",
