@@ -55,10 +55,16 @@ def create_app():
 
     # Serve uploads directly
     uploads_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'uploads')
-    os.makedirs(uploads_dir, exist_ok=True)
+    try:
+        os.makedirs(uploads_dir, exist_ok=True)
+    except OSError:
+        pass
+
     @app.route('/uploads/<path:filename>')
     def serve_upload(filename):
-        return send_from_directory(uploads_dir, filename)
+        if os.path.exists(os.path.join(uploads_dir, filename)):
+            return send_from_directory(uploads_dir, filename)
+        return jsonify({"error": "File not found"}), 404
 
     # Locate frontend build directory
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

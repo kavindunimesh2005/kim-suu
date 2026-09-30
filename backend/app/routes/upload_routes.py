@@ -23,11 +23,18 @@ def upload_file():
         return jsonify({"error": "No selected file"}), 400
         
     if file and allowed_file(file.filename):
-        os.makedirs(UPLOAD_FOLDER, exist_ok=True)
         ext = file.filename.rsplit('.', 1)[1].lower()
         unique_name = f"{uuid.uuid4().hex[:12]}.{ext}"
-        save_path = os.path.join(UPLOAD_FOLDER, unique_name)
-        file.save(save_path)
+        try:
+            os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+            save_path = os.path.join(UPLOAD_FOLDER, unique_name)
+            file.save(save_path)
+        except OSError:
+            import tempfile
+            tmp_upload = os.path.join(tempfile.gettempdir(), 'uploads')
+            os.makedirs(tmp_upload, exist_ok=True)
+            save_path = os.path.join(tmp_upload, unique_name)
+            file.save(save_path)
         
         # Also copy to frontend public/assets if available so Vite dev server can also serve it directly
         frontend_assets = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), '..', 'frontend', 'public', 'uploads')
