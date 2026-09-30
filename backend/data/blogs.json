@@ -15,7 +15,29 @@
     "is_featured": true,
     "status": "published",
     "seo_title": "Writing Hulu Aththa: Behind the Scenes with Suchetha Kapuarachchi",
-    "seo_description": "Discover the literary inspiration, mountain retreats, and personal reflections behind Suchetha Kapuarachchi's celebrated novel Hulu Aththa."
+    "seo_description": "Discover the literary inspiration, mountain retreats, and personal reflections behind Suchetha Kapuarachchi's celebrated novel Hulu Aththa.",
+    "gallery": [
+      {
+        "image": "/assets/huluaththa-landscape.jpg",
+        "caption_si": "මීදුම් පිරි කඳුකර නිම්නය හා ජලාශය",
+        "caption_en": "Mist-clad mountain valley and serene lake"
+      },
+      {
+        "image": "/assets/cabin-cutout.png",
+        "caption_si": "වනාන්තරයේ නිහඬ ලී කුටිය",
+        "caption_en": "The secluded woodland cabin"
+      },
+      {
+        "image": "/assets/tree-swing.png",
+        "caption_si": "පැරණි ගස යට ලී ඔංචිල්ලාව",
+        "caption_en": "Rustic wooden swing by the canopy"
+      },
+      {
+        "image": "/assets/green-butterfly.png",
+        "caption_si": "හරිත නිම්නයේ සමනලයා",
+        "caption_en": "Emerald butterfly of the valley"
+      }
+    ]
   },
   {
     "id": "blog-2",
@@ -33,7 +55,29 @@
     "is_featured": false,
     "status": "published",
     "seo_title": "The Meaning of Arungal: Heritage & Love in Sri Lankan Fiction",
-    "seo_description": "An intimate exploration into the historical symbolism, lotus motif, and emotional depths of the acclaimed novel Arungal by Suchetha Kapuarachchi."
+    "seo_description": "An intimate exploration into the historical symbolism, lotus motif, and emotional depths of the acclaimed novel Arungal by Suchetha Kapuarachchi.",
+    "gallery": [
+      {
+        "image": "/assets/arungal-couple.jpg",
+        "caption_si": "පාරම්පරික ප්‍රේමයේ ආත්මීය මොහොතක්",
+        "caption_en": "An eternal moment of heritage romance"
+      },
+      {
+        "image": "/assets/arungal-jhumka.png",
+        "caption_si": "කතාවේ කේන්ද්‍රය වූ නෙළුම් අරුංගලය",
+        "caption_en": "The sacred lotus heirloom earring"
+      },
+      {
+        "image": "/assets/arungal-hands.png",
+        "caption_si": "පරම්පරා යාකළ බැඳීම හා ස්පර්ශය",
+        "caption_en": "Sacred touch and generational bonds"
+      },
+      {
+        "image": "/assets/pink-lotus.png",
+        "caption_si": "පාරිශුද්ධත්වයේ නෙළුම් සංකේතය",
+        "caption_en": "The sacred pink lotus motif"
+      }
+    ]
   },
   {
     "id": "blog-3",
@@ -51,6 +95,28 @@
     "is_featured": false,
     "status": "published",
     "seo_title": "The Art of Quiet Storytelling - Suchetha Kapuarachchi",
-    "seo_description": "Suchetha Kapuarachchi shares insights into pacing, emotional subtlety, and the poetry of quietude in Sri Lankan literary fiction."
+    "seo_description": "Suchetha Kapuarachchi shares insights into pacing, emotional subtlety, and the poetry of quietude in Sri Lankan literary fiction.",
+    "gallery": [
+      {
+        "image": "/assets/lake-boat-watercolor.png",
+        "caption_si": "ජලාශය මැද නිහඬ ඔරු පැදීම",
+        "caption_en": "Tranquil boat drifting on misty waters"
+      },
+      {
+        "image": "/assets/arungal-calligraphy.png",
+        "caption_si": "කාව්‍යමය අකුරු මෝස්තරය",
+        "caption_en": "Lyrical Sinhala calligraphy art"
+      },
+      {
+        "image": "/assets/daisy-flower.png",
+        "caption_si": "වචන අතර පිපෙන සරල සුන්දරත්වය",
+        "caption_en": "Simple blooming elegance"
+      },
+      {
+        "image": "/assets/red-mandala.png",
+        "caption_si": "සාහිත්‍යමය ආත්මයේ මණ්ඩල චිත්‍රය",
+        "caption_en": "Sacred mandala artistic motif"
+      }
+    ]
   }
 ]

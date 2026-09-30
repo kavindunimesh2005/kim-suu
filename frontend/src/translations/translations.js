@@ -71,7 +71,9 @@ export const translations = {
       reading_time: "කියවීමට ගතවන කාලය",
       share_article: "බෙදාහරින්න",
       read_article: "සම්පූර්ණ සටහන කියවන්න",
-      related_posts: "සබැඳි සටහන්"
+      related_posts: "සබැඳි සටහන්",
+      gallery_title: "දෘශ්‍ය සිතුවම් සහ ඡායාරූප",
+      gallery_subtitle: "මෙම සටහනට අදාළ දෘශ්‍ය මතක සහ පසුබිම් රූප එකතුව"
     },
     gallery: {
       title: "දෘශ්‍ය ගැලරිය",
@@ -169,7 +171,9 @@ export const translations = {
       reading_time: "Reading time",
       share_article: "Share",
       read_article: "Read Article",
-      related_posts: "Related Articles"
+      related_posts: "Related Articles",
+      gallery_title: "Visual Memories & Vignettes",
+      gallery_subtitle: "Curated collection of artwork, visuals, and aesthetic vignettes related to this essay"
     },
     gallery: {
       title: "Visual Gallery",

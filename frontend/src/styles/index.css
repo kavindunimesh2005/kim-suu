@@ -462,3 +462,21 @@ body {
   }
 }
 
+/* Mini Gallery in Blog Details */
+.gallery-thumb-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+
+.gallery-thumb-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 24px -6px rgba(0,0,0,0.18) !important;
+}
+
+.gallery-thumb-card:hover img {
+  transform: scale(1.08);
+}
+
+.gallery-thumb-card:hover .opacity-0 {
+  opacity: 1 !important;
+}
+

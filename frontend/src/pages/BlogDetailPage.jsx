@@ -3,7 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import { api } from '../services/api';
 import { useLanguage } from '../context/LanguageContext';
 import { 
-  ArrowLeft, Clock, Calendar, Share2, Tag, Copy, Check, BookOpen, Feather 
+  ArrowLeft, Clock, Calendar, Share2, Tag, Copy, Check, 
+  Image as ImageIcon, Maximize2, X, ChevronLeft, ChevronRight, Sparkles 
 } from 'lucide-react';
 
 export const BlogDetailPage = () => {
@@ -14,6 +15,9 @@ export const BlogDetailPage = () => {
   const [relatedBlogs, setRelatedBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+
+  // Lightbox Modal State
+  const [lightboxIndex, setLightboxIndex] = useState(null);
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -34,6 +38,22 @@ export const BlogDetailPage = () => {
     };
     fetchBlog();
   }, [slug]);
+
+  // Keyboard navigation for lightbox
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (lightboxIndex === null || !blog?.gallery?.length) return;
+      if (e.key === 'Escape') {
+        setLightboxIndex(null);
+      } else if (e.key === 'ArrowRight') {
+        setLightboxIndex((prev) => (prev + 1) % blog.gallery.length);
+      } else if (e.key === 'ArrowLeft') {
+        setLightboxIndex((prev) => (prev - 1 + blog.gallery.length) % blog.gallery.length);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxIndex, blog]);
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -68,6 +88,10 @@ export const BlogDetailPage = () => {
     );
   }
 
+  const galleryItems = blog.gallery && blog.gallery.length > 0 ? blog.gallery : [
+    { image: blog.featured_image, caption_si: blog.title_si, caption_en: blog.title_en }
+  ];
+
   return (
     <div className="blog-detail-wrapper py-5">
       <div className="container" style={{ maxWidth: '860px' }}>
@@ -80,7 +104,7 @@ export const BlogDetailPage = () => {
             style={{ color: 'var(--color-primary)' }}
           >
             <ArrowLeft size={16} />
-            <span>Back to Journal</span>
+            <span>{lang === 'si' ? 'සටහන් වෙත ආපසු' : 'Back to Journal'}</span>
           </Link>
         </div>
 
@@ -112,7 +136,7 @@ export const BlogDetailPage = () => {
         </div>
 
         {/* Featured Image */}
-        <div className="card-literary mb-5 overflow-hidden shadow">
+        <div className="card-literary mb-5 overflow-hidden shadow-sm position-relative">
           <img 
             src={blog.featured_image} 
             alt={blog.title_en} 
@@ -127,6 +151,79 @@ export const BlogDetailPage = () => {
         >
           {lang === 'si' ? blog.content_si : blog.content_en}
         </article>
+
+        {/* ============================================================== */}
+        {/* MINI GALLERY SECTION                                           */}
+        {/* ============================================================== */}
+        {galleryItems.length > 0 && (
+          <section className="mini-gallery-section my-5 p-4 p-md-5 card-literary rounded-4 shadow-sm" style={{ background: 'var(--color-bg-alt)', border: '1px solid var(--color-card-border)' }}>
+            
+            <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-2 mb-4 pb-3 border-bottom" style={{ borderColor: 'var(--color-card-border)' }}>
+              <div className="d-flex align-items-center gap-2">
+                <div className="p-2 rounded-circle bg-primary bg-opacity-10" style={{ color: 'var(--color-primary)' }}>
+                  <ImageIcon size={20} />
+                </div>
+                <div>
+                  <h3 className="font-editorial fs-4 fw-bold mb-0" style={{ color: 'var(--color-primary)' }}>
+                    {t('blog.gallery_title')}
+                  </h3>
+                  <p className="font-sinhala-title text-muted small mb-0">
+                    {t('blog.gallery_subtitle')}
+                  </p>
+                </div>
+              </div>
+              <span className="badge px-3 py-1 rounded-pill small bg-white text-muted border align-self-start align-self-sm-center">
+                {galleryItems.length} {lang === 'si' ? 'ඡායාරූප' : 'Photos'}
+              </span>
+            </div>
+
+            {/* Grid of Gallery Thumbnails */}
+            <div className="row g-3">
+              {galleryItems.map((item, index) => (
+                <div key={index} className="col-6 col-md-3">
+                  <div 
+                    onClick={() => setLightboxIndex(index)}
+                    className="position-relative rounded-3 overflow-hidden shadow-sm gallery-thumb-card"
+                    style={{ 
+                      aspectRatio: '1 / 1', 
+                      cursor: 'pointer',
+                      border: '1.5px solid rgba(0,0,0,0.06)',
+                      background: '#fff'
+                    }}
+                  >
+                    <img 
+                      src={item.image} 
+                      alt={item.caption_en || `Gallery ${index + 1}`}
+                      className="w-100 h-100 object-fit-cover transition-transform"
+                      style={{ transition: 'transform 0.4s ease' }}
+                    />
+                    
+                    {/* Hover Overlay */}
+                    <div 
+                      className="position-absolute inset-0 w-100 h-100 d-flex flex-column justify-content-between p-2 text-white opacity-0 hover-opacity-100 transition-opacity"
+                      style={{ 
+                        top: 0, 
+                        left: 0, 
+                        background: 'linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.75) 100%)',
+                        transition: 'opacity 0.25s ease'
+                      }}
+                    >
+                      <div className="text-end">
+                        <span className="badge bg-black bg-opacity-50 rounded-circle p-1">
+                          <Maximize2 size={12} />
+                        </span>
+                      </div>
+                      <p className="font-sinhala-title small mb-0 text-truncate" style={{ fontSize: '0.72rem', textShadow: '0 1px 3px rgba(0,0,0,0.8)' }}>
+                        {lang === 'si' ? item.caption_si : item.caption_en}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </section>
+        )}
 
         {/* Tags & Social Share Bar */}
         <div className="p-4 card-literary mb-5 d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3">
@@ -187,7 +284,7 @@ export const BlogDetailPage = () => {
                 : "Renowned Sri Lankan novelist and author of the celebrated works 'Hulu Aththa' and 'Arungal'."}
             </p>
             <Link to="/about" className="small fw-bold text-decoration-none" style={{ color: 'var(--color-primary)' }}>
-              Read Author Biography &rarr;
+              {lang === 'si' ? 'කතුවරියගේ ජීවන තොරතුරු කියවන්න →' : 'Read Author Biography →'}
             </Link>
           </div>
         </div>
@@ -211,7 +308,7 @@ export const BlogDetailPage = () => {
                       </h5>
                     </div>
                     <Link to={`/blog/${b.slug}`} className="btn btn-sm btn-literary-outline rounded-pill w-fit mt-3">
-                      Read Essay &rarr;
+                      {lang === 'si' ? 'සටහන කියවන්න →' : 'Read Essay →'}
                     </Link>
                   </div>
                 </div>
@@ -221,6 +318,92 @@ export const BlogDetailPage = () => {
         )}
 
       </div>
+
+      {/* ============================================================== */}
+      {/* FULLSCREEN LIGHTBOX MODAL                                      */}
+      {/* ============================================================== */}
+      {lightboxIndex !== null && galleryItems[lightboxIndex] && (
+        <div 
+          className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center p-3 animate-fade-in"
+          style={{ 
+            backgroundColor: 'rgba(15, 10, 12, 0.94)', 
+            zIndex: 9999,
+            backdropFilter: 'blur(8px)'
+          }}
+          onClick={() => setLightboxIndex(null)}
+        >
+          {/* Close Button */}
+          <button 
+            onClick={() => setLightboxIndex(null)}
+            className="position-absolute top-0 end-0 m-3 m-md-4 btn btn-outline-light rounded-circle p-2 d-flex align-items-center justify-content-center"
+            style={{ width: '42px', height: '42px', zIndex: 10001 }}
+            aria-label="Close modal"
+          >
+            <X size={22} />
+          </button>
+
+          {/* Previous Button */}
+          {galleryItems.length > 1 && (
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightboxIndex((prev) => (prev - 1 + galleryItems.length) % galleryItems.length);
+              }}
+              className="position-absolute start-0 ms-2 ms-md-4 btn btn-outline-light rounded-circle p-2 d-flex align-items-center justify-content-center"
+              style={{ width: '46px', height: '46px', zIndex: 10001 }}
+              aria-label="Previous image"
+            >
+              <ChevronLeft size={26} />
+            </button>
+          )}
+
+          {/* Main Modal Image & Caption Content */}
+          <div 
+            className="text-center position-relative" 
+            style={{ maxWidth: '90vw', maxHeight: '85vh' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img 
+              src={galleryItems[lightboxIndex].image} 
+              alt={galleryItems[lightboxIndex].caption_en || 'Visual detail'} 
+              className="img-fluid rounded-3 shadow-2xl"
+              style={{ 
+                maxHeight: '70vh', 
+                maxWidth: '100%', 
+                objectFit: 'contain',
+                border: '1px solid rgba(255,255,255,0.1)' 
+              }}
+            />
+
+            {/* Caption & Counter */}
+            <div className="mt-3 text-white px-3">
+              <h5 className="font-sinhala-title mb-1 fw-bold fs-5">
+                {lang === 'si' ? galleryItems[lightboxIndex].caption_si : galleryItems[lightboxIndex].caption_en}
+              </h5>
+              <span className="small text-muted font-monospace">
+                {lightboxIndex + 1} / {galleryItems.length}
+              </span>
+            </div>
+          </div>
+
+          {/* Next Button */}
+          {galleryItems.length > 1 && (
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightboxIndex((prev) => (prev + 1) % galleryItems.length);
+              }}
+              className="position-absolute end-0 me-2 me-md-4 btn btn-outline-light rounded-circle p-2 d-flex align-items-center justify-content-center"
+              style={{ width: '46px', height: '46px', zIndex: 10001 }}
+              aria-label="Next image"
+            >
+              <ChevronRight size={26} />
+            </button>
+          )}
+
+        </div>
+      )}
+
     </div>
   );
 };
