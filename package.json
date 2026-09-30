@@ -1,0 +1,8 @@
+{
+  "name": "kim-suu",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix frontend install && npm --prefix frontend run build && cp -r frontend/dist/* dist/ 2>/dev/null || xcopy /E /I /Y frontend\\dist dist 2>nul || true"
+  }
+}
