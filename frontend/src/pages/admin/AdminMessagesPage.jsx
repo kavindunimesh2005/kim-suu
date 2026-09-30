@@ -43,9 +43,9 @@ export const AdminMessagesPage = () => {
       await api.admin.deleteMessage(id);
       setAlert({ type: 'success', text: 'Message deleted' });
       setActiveMessage(null);
-      fetchMessages();
+      await fetchMessages();
     } catch (err) {
-      setAlert({ type: 'danger', text: 'Failed to delete message' });
+      setAlert({ type: 'danger', text: err.message || 'Failed to delete message' });
     }
   };
 

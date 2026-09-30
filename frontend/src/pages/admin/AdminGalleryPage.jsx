@@ -69,9 +69,9 @@ export const AdminGalleryPage = () => {
     try {
       await api.admin.deleteGalleryItem(id);
       setAlert({ type: 'success', text: 'Image removed from gallery' });
-      fetchGallery();
+      await fetchGallery();
     } catch (err) {
-      setAlert({ type: 'danger', text: 'Failed to delete item' });
+      setAlert({ type: 'danger', text: err.message || 'Failed to delete item' });
     }
   };
 

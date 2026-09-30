@@ -12,16 +12,30 @@ const getHeaders = (token = null, isFormData = false) => {
   return headers;
 };
 
+const handleResponse = async (res) => {
+  let data;
+  try {
+    data = await res.json();
+  } catch (e) {
+    data = {};
+  }
+  if (!res.ok) {
+    const errorMsg = data.message || data.error || `Server returned error (${res.status})`;
+    throw new Error(errorMsg);
+  }
+  return data;
+};
+
 export const api = {
   // Public Data
   getBooks: async (status = '') => {
     const url = status ? `${API_BASE}/books?status=${status}` : `${API_BASE}/books`;
     const res = await fetch(url);
-    return res.json();
+    return handleResponse(res);
   },
   getBook: async (id) => {
     const res = await fetch(`${API_BASE}/books/${id}`);
-    return res.json();
+    return handleResponse(res);
   },
   getBlogs: async (category = '', tag = '', search = '') => {
     const params = new URLSearchParams();
@@ -29,24 +43,24 @@ export const api = {
     if (tag) params.append('tag', tag);
     if (search) params.append('search', search);
     const res = await fetch(`${API_BASE}/blogs?${params.toString()}`);
-    return res.json();
+    return handleResponse(res);
   },
   getBlog: async (id) => {
     const res = await fetch(`${API_BASE}/blogs/${id}`);
-    return res.json();
+    return handleResponse(res);
   },
   getGallery: async (category = '') => {
     const url = category ? `${API_BASE}/gallery?category=${category}` : `${API_BASE}/gallery`;
     const res = await fetch(url);
-    return res.json();
+    return handleResponse(res);
   },
   getAuthor: async () => {
     const res = await fetch(`${API_BASE}/author`);
-    return res.json();
+    return handleResponse(res);
   },
   getSettings: async () => {
     const res = await fetch(`${API_BASE}/settings`);
-    return res.json();
+    return handleResponse(res);
   },
   sendContactMessage: async (formData) => {
     const res = await fetch(`${API_BASE}/contact`, {
@@ -54,7 +68,7 @@ export const api = {
       headers: getHeaders(),
       body: JSON.stringify(formData)
     });
-    return res.json();
+    return handleResponse(res);
   },
 
   // Admin CRUD Operations
@@ -63,7 +77,7 @@ export const api = {
       const res = await fetch(`${API_BASE}/admin/dashboard`, {
         headers: getHeaders()
       });
-      return res.json();
+      return handleResponse(res);
     },
     // Books
     createBook: async (data) => {
@@ -72,7 +86,7 @@ export const api = {
         headers: getHeaders(),
         body: JSON.stringify(data)
       });
-      return res.json();
+      return handleResponse(res);
     },
     updateBook: async (id, data) => {
       const res = await fetch(`${API_BASE}/books/${id}`, {
@@ -80,14 +94,14 @@ export const api = {
         headers: getHeaders(),
         body: JSON.stringify(data)
       });
-      return res.json();
+      return handleResponse(res);
     },
     deleteBook: async (id) => {
       const res = await fetch(`${API_BASE}/books/${id}`, {
         method: 'DELETE',
         headers: getHeaders()
       });
-      return res.json();
+      return handleResponse(res);
     },
     // Blogs
     createBlog: async (data) => {
@@ -96,7 +110,7 @@ export const api = {
         headers: getHeaders(),
         body: JSON.stringify(data)
       });
-      return res.json();
+      return handleResponse(res);
     },
     updateBlog: async (id, data) => {
       const res = await fetch(`${API_BASE}/blogs/${id}`, {
@@ -104,14 +118,14 @@ export const api = {
         headers: getHeaders(),
         body: JSON.stringify(data)
       });
-      return res.json();
+      return handleResponse(res);
     },
     deleteBlog: async (id) => {
       const res = await fetch(`${API_BASE}/blogs/${id}`, {
         method: 'DELETE',
         headers: getHeaders()
       });
-      return res.json();
+      return handleResponse(res);
     },
     // Gallery
     createGalleryItem: async (data) => {
@@ -120,7 +134,7 @@ export const api = {
         headers: getHeaders(),
         body: JSON.stringify(data)
       });
-      return res.json();
+      return handleResponse(res);
     },
     updateGalleryItem: async (id, data) => {
       const res = await fetch(`${API_BASE}/gallery/${id}`, {
@@ -128,14 +142,14 @@ export const api = {
         headers: getHeaders(),
         body: JSON.stringify(data)
       });
-      return res.json();
+      return handleResponse(res);
     },
     deleteGalleryItem: async (id) => {
       const res = await fetch(`${API_BASE}/gallery/${id}`, {
         method: 'DELETE',
         headers: getHeaders()
       });
-      return res.json();
+      return handleResponse(res);
     },
     // Author Profile
     updateAuthor: async (data) => {
@@ -144,13 +158,13 @@ export const api = {
         headers: getHeaders(),
         body: JSON.stringify(data)
       });
-      return res.json();
+      return handleResponse(res);
     },
     // Messages
     getMessages: async (status = '') => {
       const url = status ? `${API_BASE}/contact/admin/messages?status=${status}` : `${API_BASE}/contact/admin/messages`;
       const res = await fetch(url, { headers: getHeaders() });
-      return res.json();
+      return handleResponse(res);
     },
     updateMessageStatus: async (id, status) => {
       const res = await fetch(`${API_BASE}/contact/admin/messages/${id}`, {
@@ -158,14 +172,14 @@ export const api = {
         headers: getHeaders(),
         body: JSON.stringify({ status })
       });
-      return res.json();
+      return handleResponse(res);
     },
     deleteMessage: async (id) => {
       const res = await fetch(`${API_BASE}/contact/admin/messages/${id}`, {
         method: 'DELETE',
         headers: getHeaders()
       });
-      return res.json();
+      return handleResponse(res);
     },
     // Settings
     updateSettings: async (data) => {
@@ -174,7 +188,7 @@ export const api = {
         headers: getHeaders(),
         body: JSON.stringify(data)
       });
-      return res.json();
+      return handleResponse(res);
     },
     // Upload
     uploadFile: async (file) => {
@@ -185,7 +199,7 @@ export const api = {
         headers: getHeaders(null, true),
         body: formData
       });
-      return res.json();
+      return handleResponse(res);
     }
   }
 };

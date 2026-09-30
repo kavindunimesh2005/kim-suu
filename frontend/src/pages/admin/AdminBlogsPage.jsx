@@ -72,9 +72,9 @@ export const AdminBlogsPage = () => {
     try {
       await api.admin.deleteBlog(id);
       setAlert({ type: 'success', text: 'Blog post deleted' });
-      fetchBlogs();
+      await fetchBlogs();
     } catch (err) {
-      setAlert({ type: 'danger', text: 'Failed to delete blog post' });
+      setAlert({ type: 'danger', text: err.message || 'Failed to delete blog post' });
     }
   };
 

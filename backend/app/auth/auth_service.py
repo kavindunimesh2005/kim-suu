@@ -1,13 +1,18 @@
-import secrets
+import hmac
+import hashlib
 import time
+import base64
+import os
 from functools import wraps
 from flask import request, jsonify
-from werkzeug.security import check_password_hash, generate_password_hash
-from app.services.data_service import get_single, update_single
+from werkzeug.security import check_password_hash
+from app.services.data_service import get_single
 
-# Active session tokens dictionary {token: {"username": ..., "expires_at": ...}}
-ACTIVE_SESSIONS = {}
-SESSION_EXPIRY_SECONDS = 86400  # 24 hours
+SECRET_KEY = os.environ.get('SECRET_KEY', 'suchetha-kapuarachchi-secret-key-2026').encode('utf-8')
+SESSION_EXPIRY_SECONDS = 86400 * 7  # 7 days
+
+def _generate_signature(data_str):
+    return hmac.new(SECRET_KEY, data_str.encode('utf-8'), hashlib.sha256).hexdigest()
 
 def authenticate_admin(username, password):
     admin_data = get_single('admin')
@@ -26,15 +31,11 @@ def authenticate_admin(username, password):
     if not check_password_hash(stored_hash, password.strip()):
         return None, "Invalid username or password"
         
-    # Generate secure token
-    token = secrets.token_urlsafe(32)
-    expires_at = time.time() + SESSION_EXPIRY_SECONDS
-    ACTIVE_SESSIONS[token] = {
-        "username": stored_username,
-        "name": admin_info.get("name", "Admin"),
-        "role": admin_info.get("role", "admin"),
-        "expires_at": expires_at
-    }
+    # Generate stateless HMAC token
+    expires_at = int(time.time() + SESSION_EXPIRY_SECONDS)
+    payload = f"{stored_username}:{expires_at}"
+    sig = _generate_signature(payload)
+    token = base64.urlsafe_b64encode(f"{payload}:{sig}".encode('utf-8')).decode('utf-8')
     
     return {
         "token": token,
@@ -45,19 +46,40 @@ def authenticate_admin(username, password):
     }, None
 
 def verify_token(token):
-    if not token or token not in ACTIVE_SESSIONS:
+    if not token:
         return False, None
-    session_data = ACTIVE_SESSIONS[token]
-    if time.time() > session_data["expires_at"]:
-        del ACTIVE_SESSIONS[token]
+    try:
+        decoded = base64.urlsafe_b64decode(token.encode('utf-8')).decode('utf-8')
+        parts = decoded.split(':')
+        if len(parts) != 3:
+            return False, None
+            
+        username, expires_at_str, sig = parts
+        expires_at = int(expires_at_str)
+        
+        if time.time() > expires_at:
+            return False, None
+            
+        payload = f"{username}:{expires_at}"
+        expected_sig = _generate_signature(payload)
+        if not hmac.compare_digest(sig, expected_sig):
+            return False, None
+            
+        admin_data = get_single('admin')
+        admin_info = admin_data.get('admin', {})
+        
+        return True, {
+            "username": username,
+            "name": admin_info.get("name", "Admin"),
+            "role": admin_info.get("role", "admin"),
+            "expires_at": expires_at
+        }
+    except Exception:
         return False, None
-    return True, session_data
 
 def invalidate_token(token):
-    if token in ACTIVE_SESSIONS:
-        del ACTIVE_SESSIONS[token]
-        return True
-    return False
+    # In stateless model, client discards token on logout
+    return True
 
 def admin_required(f):
     @wraps(f)
@@ -74,7 +96,7 @@ def admin_required(f):
             
         valid, session_data = verify_token(token)
         if not valid:
-            return jsonify({"error": "Unauthorized", "message": "Invalid or expired token"}), 401
+            return jsonify({"error": "Unauthorized", "message": "Invalid or expired session token. Please log in again."}), 401
             
         request.admin_user = session_data
         return f(*args, **kwargs)

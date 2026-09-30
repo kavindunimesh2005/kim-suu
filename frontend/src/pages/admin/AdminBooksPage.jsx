@@ -83,9 +83,9 @@ export const AdminBooksPage = () => {
     try {
       await api.admin.deleteBook(id);
       setAlert({ type: 'success', text: 'Book removed' });
-      fetchBooks();
+      await fetchBooks();
     } catch (err) {
-      setAlert({ type: 'danger', text: 'Failed to delete book' });
+      setAlert({ type: 'danger', text: err.message || 'Failed to delete book' });
     }
   };
 
