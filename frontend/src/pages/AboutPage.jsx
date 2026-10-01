@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { api } from '../services/api';
-import { Award, Feather, BookOpen, Heart, Sparkles, Mail, Compass } from 'lucide-react';
+import { Feather, BookOpen, Heart, Sparkles, Mail, Compass } from 'lucide-react';
 
 export const AboutPage = () => {
   const { t, lang } = useLanguage();
@@ -135,36 +135,6 @@ export const AboutPage = () => {
 
           </div>
 
-        </div>
-
-        {/* Achievements & Honors Section */}
-        <div className="my-5 py-5 border-top" style={{ borderColor: 'var(--color-card-border)' }}>
-          <div className="text-center mb-5">
-            <h2 className="font-editorial display-6 fw-bold mb-2" style={{ color: 'var(--color-primary)' }}>
-              {t('about.achievements_title')}
-            </h2>
-            <p className="font-sinhala-title text-muted small">
-              සාහිත්‍ය නිර්මාණ වෙනුවෙන් ලැබූ පාඨක හා විචාරක ඇගයීම්
-            </p>
-          </div>
-
-          <div className="row g-4 justify-content-center">
-            {author?.achievements?.map((ach, idx) => (
-              <div key={idx} className="col-md-4">
-                <div className="card-literary h-100 p-4 text-center">
-                  <div className="mb-3 d-inline-flex p-3 rounded-circle" style={{ background: 'rgba(var(--color-primary-rgb), 0.1)', color: 'var(--color-primary)' }}>
-                    <Award size={28} />
-                  </div>
-                  <span className="badge px-3 py-1 rounded-pill small mb-2 font-monospace" style={{ background: 'var(--color-primary)', color: '#fff' }}>
-                    {ach.year}
-                  </span>
-                  <h5 className="font-sinhala-title fw-bold fs-6 mt-2 mb-0" style={{ color: 'var(--color-primary)' }}>
-                    {lang === 'si' ? ach.title_si : ach.title_en}
-                  </h5>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Call to Connect */}
