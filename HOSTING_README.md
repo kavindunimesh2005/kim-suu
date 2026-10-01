@@ -8,7 +8,7 @@ Frontend සහ Backend දෙකම එකම folder එකක් / single depl
 
 ### 1. 🛡️ Admin Portal Access ([http://localhost:5000/admin/login](http://localhost:5000/admin/login)):
 - **Username:** `admin`
-- **Password:** `admin123`
+- **Password:** `Kim_Suu_Ah@`
 
 ### 2. 💌 Visitor Welcome Invitation Access:
 - **Username:** `Kim Suu Ah`
