@@ -117,16 +117,14 @@ const fileToDataUrl = (file, maxWidth = 1600, maxHeight = 1600, quality = 0.85) 
 export const api = {
   // Public Data
   getBooks: async (status = '') => {
-    let items = getLocalData('books');
-    if (!items) {
-      try {
-        const url = status ? `${API_BASE}/books?status=${status}` : `${API_BASE}/books`;
-        const res = await fetch(url);
-        items = await handleResponse(res);
-        setLocalData('books', items);
-      } catch (err) {
-        items = [];
-      }
+    let items = null;
+    try {
+      const url = status ? `${API_BASE}/books?status=${status}` : `${API_BASE}/books`;
+      const res = await fetch(url);
+      items = await handleResponse(res);
+      setLocalData('books', items);
+    } catch (err) {
+      items = getLocalData('books') || [];
     }
     const filtered = filterDeleted('books', items);
     if (status) {
@@ -144,19 +142,17 @@ export const api = {
   },
 
   getBlogs: async (category = '', tag = '', search = '') => {
-    let items = getLocalData('blogs');
-    if (!items) {
-      try {
-        const params = new URLSearchParams();
-        if (category) params.append('category', category);
-        if (tag) params.append('tag', tag);
-        if (search) params.append('search', search);
-        const res = await fetch(`${API_BASE}/blogs?${params.toString()}`);
-        items = await handleResponse(res);
-        setLocalData('blogs', items);
-      } catch (err) {
-        items = [];
-      }
+    let items = null;
+    try {
+      const params = new URLSearchParams();
+      if (category) params.append('category', category);
+      if (tag) params.append('tag', tag);
+      if (search) params.append('search', search);
+      const res = await fetch(`${API_BASE}/blogs?${params.toString()}`);
+      items = await handleResponse(res);
+      setLocalData('blogs', items);
+    } catch (err) {
+      items = getLocalData('blogs') || [];
     }
     let filtered = filterDeleted('blogs', items);
     if (category && category !== 'All') {
@@ -184,16 +180,14 @@ export const api = {
   },
 
   getGallery: async (category = '') => {
-    let items = getLocalData('gallery');
-    if (!items) {
-      try {
-        const url = category ? `${API_BASE}/gallery?category=${category}` : `${API_BASE}/gallery`;
-        const res = await fetch(url);
-        items = await handleResponse(res);
-        setLocalData('gallery', items);
-      } catch (err) {
-        items = [];
-      }
+    let items = null;
+    try {
+      const url = category ? `${API_BASE}/gallery?category=${category}` : `${API_BASE}/gallery`;
+      const res = await fetch(url);
+      items = await handleResponse(res);
+      setLocalData('gallery', items);
+    } catch (err) {
+      items = getLocalData('gallery') || [];
     }
     const filtered = filterDeleted('gallery', items);
     if (category && category !== 'All') {
@@ -203,28 +197,24 @@ export const api = {
   },
 
   getAuthor: async () => {
-    const cached = getLocalData('author');
-    if (cached) return cached;
     try {
       const res = await fetch(`${API_BASE}/author`);
       const data = await handleResponse(res);
       setLocalData('author', data);
       return data;
     } catch (err) {
-      return cached || {};
+      return getLocalData('author') || {};
     }
   },
 
   getSettings: async () => {
-    const cached = getLocalData('settings');
-    if (cached) return cached;
     try {
       const res = await fetch(`${API_BASE}/settings`);
       const data = await handleResponse(res);
       setLocalData('settings', data);
       return data;
     } catch (err) {
-      return cached || {};
+      return getLocalData('settings') || {};
     }
   },
 
