@@ -351,6 +351,10 @@ export const AdminBlogsPage = () => {
                       alt="Preview" 
                       className="rounded shadow-sm border"
                       style={{ width: '100%', height: '70px', objectFit: 'cover' }}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = '/assets/lake-boat-watercolor.png';
+                      }}
                     />
                   </div>
                   <div className="col-sm-9 col-md-10">
@@ -422,6 +426,10 @@ export const AdminBlogsPage = () => {
                             src={item.image || '/assets/pink-lotus.png'} 
                             alt={`Photo ${idx + 1}`} 
                             className="w-100 h-100 rounded object-fit-cover border"
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = '/assets/pink-lotus.png';
+                            }}
                           />
                           <label 
                             className="position-absolute bottom-0 end-0 bg-dark text-white rounded-circle p-1 cursor-pointer m-1 shadow-sm"

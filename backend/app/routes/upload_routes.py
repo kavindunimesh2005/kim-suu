@@ -56,4 +56,15 @@ def upload_file():
 
 @upload_bp.route('/<filename>', methods=['GET'])
 def get_uploaded_file(filename):
-    return send_from_directory(UPLOAD_FOLDER, secure_filename(filename))
+    clean_name = secure_filename(filename)
+    import tempfile
+    tmp_upload = os.path.join(tempfile.gettempdir(), 'uploads')
+    frontend_uploads = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), '..', 'frontend', 'public', 'uploads')
+    
+    if os.path.exists(os.path.join(UPLOAD_FOLDER, clean_name)):
+        return send_from_directory(UPLOAD_FOLDER, clean_name)
+    elif os.path.exists(os.path.join(tmp_upload, clean_name)):
+        return send_from_directory(tmp_upload, clean_name)
+    elif os.path.exists(os.path.join(frontend_uploads, clean_name)):
+        return send_from_directory(frontend_uploads, clean_name)
+    return jsonify({"error": "File not found"}), 404

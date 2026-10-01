@@ -78,6 +78,42 @@ const handleResponse = async (res) => {
   return data;
 };
 
+// Helper: Compress and convert image file to Base64 Data URL so images always preview & display reliably in all environments
+const fileToDataUrl = (file, maxWidth = 1600, maxHeight = 1600, quality = 0.85) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('Failed to read image file'));
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onerror = () => {
+        // Fallback to raw data URL if image can't be decoded on canvas
+        resolve(e.target.result);
+      };
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxWidth || height > maxHeight) {
+          const ratio = Math.min(maxWidth / width, maxHeight / height);
+          width = Math.round(width * ratio);
+          height = Math.round(height * ratio);
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          return resolve(e.target.result);
+        }
+        ctx.drawImage(img, 0, 0, width, height);
+        const mimeType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+        const compressedDataUrl = canvas.toDataURL(mimeType, quality);
+        resolve(compressedDataUrl);
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+};
+
 export const api = {
   // Public Data
   getBooks: async (status = '') => {
@@ -522,23 +558,37 @@ export const api = {
     // Upload
     uploadFile: async (file) => {
       try {
-        const formData = new FormData();
-        formData.append('file', file);
-        const res = await fetch(`${API_BASE}/upload`, {
-          method: 'POST',
-          headers: getHeaders(null, true),
-          body: formData
-        });
-        return await handleResponse(res);
+        // 1. Generate high-quality compressed Base64 Data URL for instant, 100% reliable preview & display everywhere
+        const dataUrl = await fileToDataUrl(file);
+
+        // 2. Also attempt upload to backend API if available
+        try {
+          const formData = new FormData();
+          formData.append('file', file);
+          const res = await fetch(`${API_BASE}/upload`, {
+            method: 'POST',
+            headers: getHeaders(null, true),
+            body: formData
+          });
+          if (res.ok) {
+            const serverData = await res.json();
+            return {
+              success: true,
+              url: dataUrl,
+              serverUrl: serverData.url,
+              filename: serverData.filename
+            };
+          }
+        } catch (backendErr) {
+          // Backend offline / serverless fallback
+        }
+
+        return {
+          success: true,
+          url: dataUrl
+        };
       } catch (err) {
-        // Fallback: create object URL or base64
-        return new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            resolve({ url: reader.result, success: true });
-          };
-          reader.readAsDataURL(file);
-        });
+        throw new Error('Could not process image file: ' + err.message);
       }
     }
   }

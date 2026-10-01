@@ -60,8 +60,16 @@ def create_app():
 
     @app.route('/uploads/<path:filename>')
     def serve_upload(filename):
+        import tempfile
+        tmp_upload = os.path.join(tempfile.gettempdir(), 'uploads')
+        frontend_uploads = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '..', 'frontend', 'public', 'uploads')
+        
         if os.path.exists(os.path.join(uploads_dir, filename)):
             return send_from_directory(uploads_dir, filename)
+        elif os.path.exists(os.path.join(tmp_upload, filename)):
+            return send_from_directory(tmp_upload, filename)
+        elif os.path.exists(os.path.join(frontend_uploads, filename)):
+            return send_from_directory(frontend_uploads, filename)
         return jsonify({"error": "File not found"}), 404
 
     # Locate frontend build directory
