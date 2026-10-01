@@ -58,7 +58,7 @@ export const Footer = () => {
         {/* Bottom bar with Copyright & Subtle Admin Link */}
         <div className="pt-3 border-top d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2" style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
           <p className="small text-muted mb-0">
-            &copy; {new Date().getFullYear()} Suchetha Kapuarachchi (Kim Suu Ah). {t('footer.rights')}
+            &copy; {new Date().getFullYear()} Arua Digital Developer Sri Lanka. {t('footer.rights')}
           </p>
 
           {/* Subtle Admin Link (as requested: discreet, not prominent) */}
