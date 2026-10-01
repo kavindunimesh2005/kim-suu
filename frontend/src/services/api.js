@@ -79,7 +79,7 @@ const handleResponse = async (res) => {
 };
 
 // Helper: Compress and convert image file to Base64 Data URL so images always preview & display reliably in all environments
-const fileToDataUrl = (file, maxWidth = 1600, maxHeight = 1600, quality = 0.85) => {
+const fileToDataUrl = (file, maxWidth = 900, maxHeight = 900, quality = 0.72) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onerror = () => reject(new Error('Failed to read image file'));
@@ -117,14 +117,22 @@ const fileToDataUrl = (file, maxWidth = 1600, maxHeight = 1600, quality = 0.85) 
 export const api = {
   // Public Data
   getBooks: async (status = '') => {
-    let items = null;
+    let localItems = getLocalData('books') || [];
+    let items = localItems;
     try {
       const url = status ? `${API_BASE}/books?status=${status}` : `${API_BASE}/books`;
       const res = await fetch(url);
-      items = await handleResponse(res);
-      setLocalData('books', items);
+      if (res.ok) {
+        const serverItems = await handleResponse(res);
+        if (Array.isArray(serverItems)) {
+          const serverIds = new Set(serverItems.map(b => String(b.id)));
+          const unsynced = localItems.filter(b => b.id && !serverIds.has(String(b.id)));
+          items = [...serverItems, ...unsynced];
+          setLocalData('books', items);
+        }
+      }
     } catch (err) {
-      items = getLocalData('books') || [];
+      items = localItems;
     }
     const filtered = filterDeleted('books', items);
     if (status) {
@@ -142,17 +150,25 @@ export const api = {
   },
 
   getBlogs: async (category = '', tag = '', search = '') => {
-    let items = null;
+    let localItems = getLocalData('blogs') || [];
+    let items = localItems;
     try {
       const params = new URLSearchParams();
       if (category) params.append('category', category);
       if (tag) params.append('tag', tag);
       if (search) params.append('search', search);
       const res = await fetch(`${API_BASE}/blogs?${params.toString()}`);
-      items = await handleResponse(res);
-      setLocalData('blogs', items);
+      if (res.ok) {
+        const serverItems = await handleResponse(res);
+        if (Array.isArray(serverItems)) {
+          const serverIds = new Set(serverItems.map(b => String(b.id)));
+          const unsynced = localItems.filter(b => b.id && !serverIds.has(String(b.id)));
+          items = [...serverItems, ...unsynced];
+          setLocalData('blogs', items);
+        }
+      }
     } catch (err) {
-      items = getLocalData('blogs') || [];
+      items = localItems;
     }
     let filtered = filterDeleted('blogs', items);
     if (category && category !== 'All') {
@@ -180,14 +196,22 @@ export const api = {
   },
 
   getGallery: async (category = '') => {
-    let items = null;
+    let localItems = getLocalData('gallery') || [];
+    let items = localItems;
     try {
       const url = category ? `${API_BASE}/gallery?category=${category}` : `${API_BASE}/gallery`;
       const res = await fetch(url);
-      items = await handleResponse(res);
-      setLocalData('gallery', items);
+      if (res.ok) {
+        const serverItems = await handleResponse(res);
+        if (Array.isArray(serverItems)) {
+          const serverIds = new Set(serverItems.map(g => String(g.id)));
+          const unsynced = localItems.filter(g => g.id && !serverIds.has(String(g.id)));
+          items = [...serverItems, ...unsynced];
+          setLocalData('gallery', items);
+        }
+      }
     } catch (err) {
-      items = getLocalData('gallery') || [];
+      items = localItems;
     }
     const filtered = filterDeleted('gallery', items);
     if (category && category !== 'All') {
@@ -548,10 +572,7 @@ export const api = {
     // Upload
     uploadFile: async (file) => {
       try {
-        // 1. Generate high-quality compressed Base64 Data URL for instant, 100% reliable preview & display everywhere
-        const dataUrl = await fileToDataUrl(file);
-
-        // 2. Also attempt upload to backend API if available
+        // 1. Attempt upload to backend API first
         try {
           const formData = new FormData();
           formData.append('file', file);
@@ -562,17 +583,21 @@ export const api = {
           });
           if (res.ok) {
             const serverData = await res.json();
-            return {
-              success: true,
-              url: dataUrl,
-              serverUrl: serverData.url,
-              filename: serverData.filename
-            };
+            if (serverData && serverData.url) {
+              return {
+                success: true,
+                url: serverData.url,
+                serverUrl: serverData.url,
+                filename: serverData.filename
+              };
+            }
           }
         } catch (backendErr) {
           // Backend offline / serverless fallback
         }
 
+        // 2. If backend upload is offline, generate compressed lightweight Data URL
+        const dataUrl = await fileToDataUrl(file);
         return {
           success: true,
           url: dataUrl
