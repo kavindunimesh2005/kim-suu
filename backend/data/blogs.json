@@ -1,1 +1,37 @@
-[]
+[
+  {
+    "id": "blog-the-launch-of-arungal",
+    "slug": "the-launch-of-arungal",
+    "title_si": "අරුංගල් දොරට වැඩුම",
+    "title_en": "The Launch of Arungal",
+    "content_si": "අරුංගල් නවකතාවේ නිල දොරට වැඩුම 2026 සැප්තැම්බර් 20 වන දින සාර්ථක ලෙස පැවැත්විණි.\n\nපාඨක ප්‍රජාවට නව්‍ය සාහිත්‍යමය අත්දැකීමක් තිළිණ කිරීමේ අරමුණින් නිර්මාණය වූ අරුංගල් කෘතිය, සම්භාවනීය ආරාධිතයන්, සාහිත්‍ය ලෝලීන් සහ හිතවතුන්ගේ සහභාගීත්වයෙන් එළිදැක්විණි. මෙය අරුංගල් සාහිත්‍ය ගමනේ සුවිශේෂී සන්ධිස්ථානයක් සනිටුහන් කරයි.\n\nකෘතියේ පසුබිම, එහි අන්තර්ගතය සහ නිර්මාණාත්මක දෘෂ්ටිය පිළිබඳ අදහස් හුවමාරු කර ගැනීමටද මෙම අවස්ථාව මහඟු වේදිකාවක් විය.\n\nපාඨක ආදරය සහ සහයෝගය පෙරදැරි කරගනිමින්, අරුංගල් නවකතාව සමඟ ඇරඹි මෙම සාහිත්‍ය චාරිකාව තවදුරටත් සාර්ථකව ඉදිරියට ගමන් කරනු ඇතැයි අපි අපේක්ෂා කරමු.",
+    "content_en": "The official launch of Arungal took place successfully on 20 September 2026.\n\nCreated to offer a fresh literary experience, Arungal was officially introduced to readers during this special occasion. With the participation of the author, invited guests, literature enthusiasts, and well-wishers, the event marked an important milestone in the journey of Arungal.\n\nThe event also provided an opportunity to share insights into the creative background of the book, its content, and the author's literary perspective.\n\nWith the launch of Arungal, a new literary journey has begun—one that we hope will continue to grow with the appreciation and support of readers.",
+    "featured_image": "/assets/arungal-couple.jpg",
+    "author": "Suchetha Kapuarachchi",
+    "date": "2026-10-01",
+    "category": "Literary Reflections",
+    "tags": ["Arungal", "Book Launch", "Literature", "Suchetha Kapuarachchi"],
+    "reading_time": "4 min",
+    "is_featured": true,
+    "status": "published",
+    "seo_title": "The Launch of Arungal - Suchetha Kapuarachchi",
+    "seo_description": "The official launch of Arungal by Suchetha Kapuarachchi on 20 September 2026.",
+    "gallery": [
+      {
+        "image": "/assets/arungal-calligraphy.png",
+        "caption_si": "කාව්‍යමය අකුරු මෝස්තරය",
+        "caption_en": "Lyrical Sinhala calligraphy art"
+      },
+      {
+        "image": "/assets/arungal-hands.png",
+        "caption_si": "අරුංගල් අත් මඟුල",
+        "caption_en": "Traditional ritual hand offering"
+      },
+      {
+        "image": "/assets/arungal-cover.png",
+        "caption_si": "අරුංගල් නිල කවර නිර්මාණය",
+        "caption_en": "Arungal official book cover"
+      }
+    ]
+  }
+]
