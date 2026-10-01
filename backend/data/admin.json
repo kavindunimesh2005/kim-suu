@@ -1,7 +1,7 @@
 {
   "admin": {
     "username": "admin",
-    "password_hash": "pbkdf2:sha256:1000000$fF5Ns9jcl00XrcWN$2a789044ed7cb5212102171fc6159e97f36a2f5de6f6baa253960343e8c97045",
+    "password_hash": "pbkdf2:sha256:1000000$GOIScLjPHnErtt2T$3b0d004b0a30884c41a0741d3c83285741bf6454c92b01501d23fa16eda6e06f",
     "email": "kavii@authorworld.lk",
     "name": "Kavii Admin",
     "role": "superadmin",
