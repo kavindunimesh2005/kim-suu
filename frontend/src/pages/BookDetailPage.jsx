@@ -4,8 +4,8 @@ import { api } from '../services/api';
 import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
 import { 
-  ArrowLeft, Star, BookOpen, Quote, Sparkles, ShoppingBag, 
-  Calendar, Layers, FileText, CheckCircle2, Send, X 
+  ArrowLeft, Star, BookOpen, Quote, Sparkles, 
+  Calendar, Layers, FileText, CheckCircle2 
 } from 'lucide-react';
 
 export const BookDetailPage = () => {
@@ -16,14 +16,6 @@ export const BookDetailPage = () => {
   const [book, setBook] = useState(null);
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [orderModalOpen, setOrderModalOpen] = useState(false);
-  const [orderSubmitted, setOrderSubmitted] = useState(false);
-
-  // Inquiry form states
-  const [inquiryName, setInquiryName] = useState('');
-  const [inquiryEmail, setInquiryEmail] = useState('');
-  const [inquiryPhone, setInquiryPhone] = useState('');
-  const [inquiryAddress, setInquiryAddress] = useState('');
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -52,21 +44,6 @@ export const BookDetailPage = () => {
     };
     fetchBook();
   }, [slug]);
-
-  const handleOrderSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await api.sendContactMessage({
-        name: inquiryName,
-        email: inquiryEmail,
-        subject: `Book Order Inquiry: ${book?.title_en} (${inquiryPhone})`,
-        message: `Book: ${book?.title_en} (${book?.title_si})\nAddress: ${inquiryAddress}\nPhone: ${inquiryPhone}`
-      });
-      setOrderSubmitted(true);
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   if (loading) {
     return (
@@ -118,17 +95,6 @@ export const BookDetailPage = () => {
                   />
                   <div className="book-3d-spine" />
                 </div>
-              </div>
-
-              {/* Order / Inquiry Button */}
-              <div className="mt-4">
-                <button
-                  onClick={() => setOrderModalOpen(true)}
-                  className="btn btn-literary w-100 py-3 rounded-pill fs-6 justify-content-center shadow"
-                >
-                  <ShoppingBag size={18} />
-                  <span>{t('books.order_inquiry')} • LKR {book.price_lkr}</span>
-                </button>
               </div>
             </div>
 
@@ -329,109 +295,6 @@ export const BookDetailPage = () => {
         )}
 
       </div>
-
-      {/* ============================================================== */}
-      {/* PURCHASE / INQUIRY MODAL                                       */}
-      {/* ============================================================== */}
-      {orderModalOpen && (
-        <div 
-          className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center p-3"
-          style={{ background: 'rgba(0,0,0,0.65)', zIndex: 9999, backdropFilter: 'blur(5px)' }}
-        >
-          <div 
-            className="card-literary p-4 p-md-5 max-w-lg w-100 position-relative animate-fade-in"
-            style={{ maxWidth: '520px', background: '#fff' }}
-          >
-            <button
-              onClick={() => {
-                setOrderModalOpen(false);
-                setOrderSubmitted(false);
-              }}
-              className="position-absolute top-0 end-0 m-3 btn btn-sm btn-light rounded-circle"
-            >
-              <X size={18} />
-            </button>
-
-            {!orderSubmitted ? (
-              <>
-                <div className="text-center mb-4">
-                  <img src="/assets/pink-lotus.png" alt="Lotus" style={{ width: '40px', height: '40px' }} />
-                  <h4 className="font-editorial fw-bold mt-2 mb-1" style={{ color: 'var(--color-primary)' }}>
-                    Book Order / Inquiry
-                  </h4>
-                  <p className="font-sinhala-title text-muted small mb-0">
-                    {book.title_si} ({book.title_en}) • LKR {book.price_lkr}
-                  </p>
-                </div>
-
-                <form onSubmit={handleOrderSubmit}>
-                  <div className="mb-3">
-                    <label className="form-label small fw-bold text-muted">Full Name</label>
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      value={inquiryName} 
-                      onChange={e => setInquiryName(e.target.value)} 
-                      required 
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label small fw-bold text-muted">Email Address</label>
-                    <input 
-                      type="email" 
-                      className="form-control" 
-                      value={inquiryEmail} 
-                      onChange={e => setInquiryEmail(e.target.value)} 
-                      required 
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label small fw-bold text-muted">Contact Phone (WhatsApp)</label>
-                    <input 
-                      type="tel" 
-                      className="form-control" 
-                      value={inquiryPhone} 
-                      onChange={e => setInquiryPhone(e.target.value)} 
-                      required 
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label small fw-bold text-muted">Delivery Address / Notes</label>
-                    <textarea 
-                      className="form-control" 
-                      rows="3" 
-                      value={inquiryAddress} 
-                      onChange={e => setInquiryAddress(e.target.value)} 
-                      required 
-                    />
-                  </div>
-
-                  <button type="submit" className="btn btn-literary w-100 py-3 rounded-pill justify-content-center">
-                    <Send size={16} />
-                    <span>Submit Inquiry</span>
-                  </button>
-                </form>
-              </>
-            ) : (
-              <div className="text-center py-4">
-                <CheckCircle2 size={48} className="text-success mb-3" />
-                <h4 className="font-editorial fw-bold mb-2">Inquiry Received</h4>
-                <p className="font-sinhala-title text-muted mb-4 small">
-                  {lang === 'si'
-                    ? "ඔබගේ පොත් ඇණවුම් විමසීම සාර්ථකව ලැබිණි. අපගේ කණ්ඩායම ඔබ හා සම්බන්ධ වනු ඇත."
-                    : "Thank you! Your order inquiry has been received. Our distribution team will contact you shortly."}
-                </p>
-                <button 
-                  onClick={() => setOrderModalOpen(false)} 
-                  className="btn btn-literary rounded-pill px-4"
-                >
-                  Close
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
 
     </div>
   );
